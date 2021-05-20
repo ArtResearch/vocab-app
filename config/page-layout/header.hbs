@@ -1,0 +1,36 @@
+<bs-navbar class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="rs-header">
+    <div class="navbar-header">
+      <bs-navbar-toggle></bs-navbar-toggle>
+      <semantic-link
+        class="rs-header-logo"
+        iri="Default:start"
+      >Artresearch.net</semantic-link>
+    </div>
+    <bs-navbar-collapse>
+      <bs-nav>
+        <mp-anonymous-hidden>
+          <bs-nav-item>
+            <semantic-link
+              iri="Default:admin"
+              title="Go to admin settings"
+              class="rs-body-m-M"
+            >Admin</semantic-link>
+          </bs-nav-item>
+        </mp-anonymous-hidden>
+        <mp-anonymous-hidden>
+          <li role="presentation">
+            <a
+              href="/sparql"
+              title="Go to SPARQL endpoint"
+              class="rs-body-m-M"
+            >SPARQL</a>
+          </li>
+        </mp-anonymous-hidden>
+        <bs-nav-item>
+          <mp-nav-account></mp-nav-account>
+        </bs-nav-item>
+      </bs-nav>
+    </bs-navbar-collapse>
+  </div>
+</bs-navbar>
