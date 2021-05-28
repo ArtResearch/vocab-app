@@ -215,11 +215,6 @@
   display: none !important;
 }
 
-#institution-filter-search .facet__relation__header {
-  border: 1px solid rgb(221, 221, 221);
-  margin-top: 5px;
-}
-
 #institution-filter-search .facet__relation__header:hover,
 #institution-filter-search .facet__relation__header:focus {
   text-decoration: none;
@@ -263,11 +258,13 @@ header h1 {
 }
 
 #institution-filter-search .facet__relation__header {
+  min-height: 50px;
   border: none !important;
   border-radius: 4px !important;
   box-shadow: 1px 1px 4px 0px lightgrey;
   font-weight: bold;
   height: 5vh;
+  margin-top: 5px;
 }
 
 #institution-filter-search .clearable-input__clear {
@@ -287,7 +284,7 @@ header h1 {
   margin-top: 8px;
   position: sticky;
   padding: 1vh;
-  top: 17vh;
+  top: 25vh;
   z-index: 1;
   background: white;
 }
@@ -348,13 +345,16 @@ header h1 {
 }
 
 @media (max-width: 800px) {
+  #institution-filter-search .filters-container {
+    margin-top:  10vh !important;
+    top:unset !important;
+    position: relative !important;
+  }
+
   #institution-filter-search .thumbnailImageContainer {
     justify-content: center;
   }
-  #institution-filter-search .cardInfo {
-    left: 0vw;
-    top: 0vh;
-  }
+
   #institution-filter-search .rs-page__field {
     flex-direction: column;
   }
@@ -364,4 +364,8 @@ header h1 {
     > .table {
     overflow: hidden;
   }
+  #institution-filter-search .tab-content {
+    padding-top: 20px !important;
+  }
 }
+

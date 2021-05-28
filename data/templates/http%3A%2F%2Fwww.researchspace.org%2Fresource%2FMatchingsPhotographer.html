@@ -31,94 +31,122 @@
     </div>
 
     <div class="matchingContainer" >
+      <semantic-query
+      query='
+        SELECT ?subject ?recommended WHERE {
+          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>
+          OPTIONAL{
+            ?subject skos:exactMatch ?recommended.
+          }
+        }LIMIT 1
+      '
+      template="{{>singlePhotographerTemplate}}"
+      >
+        <template id="singlePhotographerTemplate">
       <div class="canditate">
         <div style="display: flex;">
-          <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="../../assets/images/media/fratelli.jpg" />
+          <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
           <div style="display: flex; flex-direction: column; margin-left: 15px;">
-            <h1 style="font-size: 32px !important">
-              <mp-label iri="https://pharos.artresearch.net/resource/itatti/actor/9000335551" ></mp-label>
+            <h1 style="font-size: 32px !important">     
+              <mp-label iri="{{bindings.0.subject.value}}" ></mp-label>
             </h1>
-            <a target="_recommendedPhotographer"  href="/resource/?uri=https://pharos.artresearch.net/resource/nypl/actor/1760">
+            <small><a target="_viewSubjectPhotographer" href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}">View on artresearch</a></small>
+            {{#if bindings.0.recommended.value}}
+            <a target="_recommendedPhotographer"  href="{{bindings.0.recommended.value}}">
               <h2 class="recommendedText">
               View recommended match
               </h2>
             </a>
+            {{/if}}
           </div>
         </div>
         <div>
-          [[> :FilterSearchPhotographermatch photographerIri="https://pharos.artresearch.net/resource/itatti/actor/9000335551" ]]
+          [[> :FilterSearchArtworkPhotographerMatch photographerIri="{{bindings.0.subject.value}}" ]]
         </div>
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" or "Not same" button to suggest a match</h2 style="font-size: 22px;">
-        <div class="matchingCard">
-          <div class="matchingCardHeader">
-            <div class="matchingCardHeaderInfo">
-              <h2  style="font-size: 24px; font-weight: bold;">
-                 <mp-label iri="https://pharos.artresearch.net/resource/nypl/actor/1760" ></mp-label>
-                </h2>
-                <h2>Source: NYPL</h2>
-            </div>
-            <div class="actions">
-              <button
-              name="submit"
-              class="btn btn-warning action reject"
-              title="The Photographer instance is not the same"
-            >
-              Not same
-            </button>
-
-                <button
-                  id="1234"
-                  name="submit"
-                  class="btn btn-default action approve"
-                  title="Click to identify two instances as the same"
-                >
-                  Same
-                </button>
-  
        
-            </div>
-          </div>
-          <div class="matchingCardBody">
-            <mp-field-visualization
-            subject="https://pharos.artresearch.net/resource/nypl/actor/1760"
-            fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
-            template='{{>workInfo}}'
-            >
-          <template id="workInfo">
-            <div class="workInfoContainer">
-              [[> :ResourceFieldBasedVisualization subject="https://pharos.artresearch.net/resource/nypl/actor/1760" ]]
-            </div>
-          </template>
-          </mp-field-visualization>
-          </div>
-        </div>
+       <semantic-query
+       query='SELECT ?match WHERE {
+         <{{bindings.0.subject.value}}> skos:closeMatch ?match
+       }'
+       template="{{>possibleMatchesTemplate}}"
+       >  
+       <template id="possibleMatchesTemplate">
+         {{#each bindings}}
+            <div class="matchingCard">
+              <div class="matchingCardHeader">
+                <div class="matchingCardHeaderInfo">
+                  <h2  style="font-size: 24px; font-weight: bold;">
+                    <mp-label iri="{{match.value}}" ></mp-label>
+                    </h2>
+                    <small><a target="_viewMatchArtist" href="{{match.value}}">View source</a></small>
+                    <h2>Source: WikiData</h2>
+                </div>
+                <div class="actions">
+                  <button
+                  name="submit"
+                  class="btn btn-warning action reject"
+                  title="The Photographer instance is not the same"
+                >
+                  Not same
+                </button>
 
-
+                    <button
+                      id="1234"
+                      name="submit"
+                      class="btn btn-default action approve"
+                      title="Click to identify two instances as the same"
+                    >
+                      Same
+                    </button>
+      
+          
+                </div>
+              </div>
+              <div class="matchingCardBody">
+                <mp-field-visualization
+                subject="{{match.value}}"
+                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+                template='{{>workInfo}}'
+                >
+              <template id="workInfo">
+                <div class="workInfoContainer">
+                  [[> :ResourceFieldBasedVisualization subject="{{match.value}}" ]]
+                </div>
+              </template>
+              </mp-field-visualization>
+              </div>
+            </div>
+          {{/each}}
+       </template>
+       </semantic-query>
       </div>
+    </template>
+  </semantic-query>
     </div>
     
    
 </div>
 <style>
+  .separatingLine{
+    display: block;
+    border-left: 2px solid gainsboro;
+    height: 600px;
+  }
 
-.separatingLine{
-  display: block;
-  border-left: 2px solid gainsboro;
-  height: 600px;
-}
-
-.matchingContainer{
-  display: flex;
-}
-.matchingContainer .canditate{
-  display: flex; 
-  flex-direction: column;
-  width: 45%;
-  margin-left: 5%;
-}
+  .matchingContainer{
+    display: flex;
+  }
+  .matchingContainer .canditate{
+    display: flex; 
+    flex-direction: column;
+    width: 45%;
+    margin-left: 5%;
+  }
 
   .matchingImage{
     height: 18vh !important;
@@ -128,13 +156,13 @@
     color:darkblue !important;
   }
 
-
   .matchingCard{
     width: 90%;
     height: fit-content;
     background: white;
     border-radius: 4px;
     padding: 2vh;
+    margin-bottom: 2vh;
     box-shadow: 1px 1px 8px 3px #ebebeb;
   }
   .matchingCard .matchingCardHeader{

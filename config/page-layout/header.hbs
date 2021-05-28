@@ -7,7 +7,7 @@
         iri="Default:start"
       >Artresearch.net</semantic-link>
     </div>
-    <bs-navbar-collapse>
+    <bs-navbar-collapse class=" pull-right">
       <bs-nav>
         <mp-anonymous-hidden>
           <bs-nav-item>
@@ -27,9 +27,22 @@
             >SPARQL</a>
           </li>
         </mp-anonymous-hidden>
-        <bs-nav-item>
-          <mp-nav-account></mp-nav-account>
-        </bs-nav-item>
+        <li role="presentation">
+          <mp-anonymous-hidden>
+            <a
+              id="logoutLink"
+              href="/logout"
+              title="logout"
+              class="rs-body-m-M fa fa-sign-out"
+            >Logout</a>
+          </mp-anonymous-hidden>
+          <a
+            id="loginLink"
+            href="/login"
+            title="login"
+            class="rs-body-m-M fa fa-sign-in"
+          >Login</a>
+        </li>
       </bs-nav>
     </bs-navbar-collapse>
   </div>

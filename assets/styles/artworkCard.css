@@ -193,10 +193,6 @@
   padding: 1vh;
 }
 
-
-
-
-
 .placeCard {
   width: 10vw !important;
   border-radius: 15px !important;
@@ -233,6 +229,7 @@
   max-height: unset;
   min-width: unset;
   object-fit: cover;
+  border: 0 !important;
 }
 
 .placeCard .thumbnailImage[alt]:after {
@@ -251,4 +248,17 @@
 
 .placeCard .cardInfoFields {
   padding: 1vh;
+}
+
+.artwork-card-big .system-spinner{
+display: none !important;
+}
+.placeCard .system-spinner{
+display: none !important;
+}
+.repositoryCard .system-spinner{
+display: none !important;
+}
+.personCard .system-spinner{
+display: none !important;
 }
