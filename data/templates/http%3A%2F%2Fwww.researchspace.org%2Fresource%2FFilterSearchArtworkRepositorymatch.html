@@ -27,9 +27,9 @@
                   ?subject pharosfr:Work_depicted_by_Photo ?photo.
                 }LIMIT 100
             " tuple-template="{{>tupleTemplate}}"
-              no-result-template='[[> :noResultCard ]]'
+              no-result-template='[[> :CardNoResult ]]'
             >
-                  <template id="tupleTemplate"> [[> :artworkCard]] </template>
+                  <template id="tupleTemplate"> [[> :CardArtwork]] </template>
                 </semantic-table>
             </semantic-search-result>
       </semantic-search-result-holder>
