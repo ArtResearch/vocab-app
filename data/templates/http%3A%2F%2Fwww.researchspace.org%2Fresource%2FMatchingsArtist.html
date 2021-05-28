@@ -1,6 +1,4 @@
-<div id="start-page">
-  <!-- PHAROS SECTION -->
-  <div>
+  <div id="matchings">
     <div class="jumbotron">
       <h1 style="margin-left: 13vw; display: flex" class="display-13">
         <semantic-link 
@@ -18,10 +16,9 @@
     <div
       title="Your selected provider"
       style="
-        display: flex;
-        justify-content: center;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
       "
     >
       <img
@@ -35,7 +32,8 @@
       query='
         SELECT ?subject ?recommended WHERE {
           ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist>
+          ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+          ?subject skos:closeMatch ?match.
           OPTIONAL{
             ?subject skos:exactMatch ?recommended.
           }
@@ -71,8 +69,12 @@
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" or "Not same" button to suggest a match</h2 style="font-size: 22px;">
        
        <semantic-query
-       query='SELECT ?match WHERE {
+       query='SELECT ?match ?image WHERE {
          <{{bindings.0.subject.value}}> skos:closeMatch ?match.
+         OPTIONAL{
+           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           BIND(str(?wikiImage) as ?image)
+         }
        }'
        template="{{>possibleMatchesTemplate}}"
        >  
@@ -80,6 +82,9 @@
          {{#each bindings}}
             <div class="matchingCard">
               <div class="matchingCardHeader">
+                {{#if image.value}}
+                  <img src="{{image.value}}?width=250"/>
+                {{/if}}
                 <div class="matchingCardHeaderInfo">
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
@@ -131,74 +136,3 @@
     
    
 </div>
-<style>
-  .separatingLine{
-    display: block;
-    border-left: 2px solid gainsboro;
-    height: 600px;
-  }
-
-  .matchingContainer{
-    display: flex;
-  }
-  .matchingContainer .canditate{
-    display: flex; 
-    flex-direction: column;
-    width: 45%;
-    margin-left: 5%;
-  }
-
-  .matchingImage{
-    height: 18vh !important;
-    margin: 0vw !important;
-  }
-  .recommendedText{
-    color:darkblue !important;
-  }
-
-  .matchingCard{
-    width: 90%;
-    height: fit-content;
-    background: white;
-    border-radius: 4px;
-    padding: 2vh;
-    margin-bottom: 2vh;
-    box-shadow: 1px 1px 8px 3px #ebebeb;
-  }
-  .matchingCard .matchingCardHeader{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  .matchingCard .matchingCardHeader .matchingCardHeaderInfo{
-    display: flex;
-    flex-direction: column;
-  }
-  .actions {
-    display: flex;
-    justify-content: center;
-    min-height: 65px;
-    height: fit-content;
-    align-items: center;
-  }
-
-  .actions .action {
-    color: white !important;
-    font-size: medium;
-    border: none !important;
-    min-height: 4vh;
-    width: 8vw;
-    margin-right: 2vw;
-    border-radius: 4px;
-    min-width: 80px;
-  }
-
-  .approve {
-    background-color: #007bff !important;
-  }
-  .reject {
-    background-color: #6c757d !important;
-    font-weight: normal !important;
-  }
-</style>

@@ -7,11 +7,11 @@
               escape-lucene-syntax="false"
               default-query='
               SELECT DISTINCT ?subject WHERE {
-                ?subject pharosfr:Work_kept_by_Institution <[[repositoryIri]]>.
+                <[[repositoryIri]]> pharosfr:Institution_keeps_Work    ?subject .
               }LIMIT 100'
               query='
                   SELECT DISTINCT ?subject WHERE {
-                    ?subject pharosfr:Work_kept_by_Institution <[[repositoryIri]]>.
+                 <[[repositoryIri]]> pharosfr:Institution_keeps_Work    ?subject . 
                   }'
             ></semantic-search-query-keyword>
   </div>

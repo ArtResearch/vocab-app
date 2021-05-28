@@ -18,7 +18,7 @@
 @import "./searchbar.css";
 @import "./filtersearch.css";
 @import "./partner.css";
-
+@import "./matchings.css";
 body {
   font-size: 14px;
   line-height: 1.2;

@@ -1,0 +1,35 @@
+<div id="start-page">
+  <!-- PHAROS SECTION -->
+  <div>
+    <div class="jumbotron">
+      <h1 style="margin-left: 13vw; display: flex" class="display-13">
+        <semantic-link 
+        urlqueryparam-partner='[[urlParam "partner"]]'
+        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+        iri="Default:PartnerCategorySelect">
+          <div class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+          </div>
+        </semantic-link>
+        Confirm artist matchings
+      </h1>
+    </div>
+
+    <div
+      title="Your selected provider"
+      style="
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+      "
+    >
+      <img
+        style="height: 80px"
+        src='../../assets/images/logos/[[urlParam "partnerimage"]]'
+      />
+    </div>
+
+    <div class="matchingContainer" >
+      <h1 style="text-align: center;width: 100%;">Currently there are no reconciliations to be confirmed</h2>
+    </div>
+</div>

@@ -15,10 +15,9 @@
     <div
       title="Your selected provider"
       style="
-        display: flex;
-        justify-content: center;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
       "
     >
       <img
@@ -82,7 +81,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ReconciliationView"
+        iri="Default:ConfirmArtist"
       >
         <div class="card" title="View artist reconciliations">
           <img
@@ -96,7 +95,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ReconciliationView"
+        iri="Default:ConfirmPhotographer"
       >
         <div class="card" title="View photographer reconciliations">
           <img
@@ -110,7 +109,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ReconciliationView"
+        iri="Default:ConfirmRepository"
       >
         <div class="card" title="View repository reconciliations">
           <img
@@ -133,4 +132,5 @@
     height: 18vh !important;
     margin: 0vw !important;
   }
+
 </style>

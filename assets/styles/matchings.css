@@ -1,0 +1,88 @@
+#matchings .separatingLine {
+  display: flex;
+  border-left: 2px solid gainsboro;
+}
+
+#matchings .matchingContainer {
+  display: flex;
+}
+#matchings .matchingContainer .canditate {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin-left: 5%;
+}
+
+#matchings .matchingImage {
+  height: 18vh !important;
+  margin: 0vw !important;
+}
+#matchings .recommendedText {
+  color: darkblue !important;
+}
+
+#matchings .matchingCard {
+  width: 90%;
+  height: fit-content;
+  background: white;
+  border-radius: 4px;
+  padding: 2vh;
+  margin-bottom: 2vh;
+  box-shadow: 1px 1px 8px 3px #ebebeb;
+}
+#matchings .matchingCard .matchingCardHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+#matchings .matchingCard .matchingCardHeader img {
+  height: 85px;
+  border-radius: 100%;
+  width: 85px;
+  margin-right: 8px;
+  object-fit: cover;
+  min-width: 85px;
+  background: whitesmoke;
+  min-height: 85px;
+}
+#matchings .matchingCard .matchingCardHeader .matchingCardHeaderInfo {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2vw;
+}
+#matchings .actions {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+  height: fit-content;
+  align-items: center;
+}
+
+#matchings .actions .action {
+  color: white !important;
+  font-size: medium;
+  border: none !important;
+  min-height: 4vh;
+  width: 8vw;
+  margin-right: 2vw;
+  border-radius: 4px;
+  min-width: 80px;
+}
+
+#matchings .approve {
+  background-color: #007bff !important;
+}
+#matchings .reject {
+  background-color: #6c757d !important;
+  font-weight: normal !important;
+}
+
+#matchings .jumbotron {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+#matchings .jumbotron .h1,
+#matchings .jumbotron h1 {
+  font-size: 45px;
+}
