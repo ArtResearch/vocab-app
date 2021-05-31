@@ -27,17 +27,18 @@
       />
     </div>
 
-    <div class="matchingContainer" >
+    <div class="matchingContainer">
       <semantic-query
       query='
         SELECT ?subject ?recommended WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
-          ?subject skos:closeMatch ?match.
-          OPTIONAL{
-            ?subject skos:exactMatch ?recommended.
-          }
-          FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+            ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+            ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+            ?subject skos:closeMatch ?match.
+            OPTIONAL{
+              ?subject skos:exactMatch ?recommended.
+            }
+            FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }LIMIT 1
       '
       template="{{>singleRepositoryTemplate}}"

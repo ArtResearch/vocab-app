@@ -1,4 +1,4 @@
-<div id="start-page">
+<div id="matchings">
   <!-- PHAROS SECTION -->
   <div>
     <div class="jumbotron">
@@ -29,6 +29,148 @@
       />
     </div>
     <div class="matchingContainer" >
-      <h1 style="text-align: center;width: 100%;">Currently there are no reconciliations to be confirmed</h2>
+      <semantic-query
+      query='
+        SELECT ?subject ?recommended WHERE {
+            ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+            ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+            ?subject skos:closeMatch ?match.
+            OPTIONAL{
+              ?subject skos:exactMatch ?recommended.
+            }
+            FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+          FILTER EXISTS { ?subject owl:sameAs ?a }
+        }LIMIT 1
+      '
+      no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no reconciliations to be confirmed</h1>'
+      template="{{>singleRepositoryTemplate}}"
+      >
+        <template id="singleRepositoryTemplate">
+      <div class="canditate">
+        <div style="display: flex;">
+          <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
+          <div style="display: flex; flex-direction: column; margin-left: 15px;">
+            <h1 style="font-size: 32px !important">     
+              <mp-label iri="{{bindings.0.subject.value}}" ></mp-label>
+            </h1>
+            <small><a target="_viewSubjectRepository" href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}">View on artresearch</a></small>
+            {{#if bindings.0.recommended.value}}
+            <a target="_recommendedRepository"  href="{{bindings.0.recommended.value}}">
+              <h2 class="recommendedText">
+              View recommended match
+              </h2>
+            </a>
+            {{/if}}
+          </div>
+        </div>
+        <div>
+          <mp-field-visualization
+          subject="{{bindings.0.subject.value}}"
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          template='{{>workInfo}}'
+          >
+        <template id="workInfo">
+          <div class="workInfoContainer">
+            [[> :ResourceFieldBasedVisualization subject="{{bindings.0.subject.value}}" ]]
+          </div>
+        </template>
+        </mp-field-visualization>
+          [[> :FilterSearchArtworkRepositorymatch repositoryIri="{{bindings.0.subject.value}}" ]]
+        </div>
+      </div>
+      <div class="separatingLine"></div>
+      <div class="canditate">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Confirm" or "Reject" button to verify suggested matches</h2 style="font-size: 22px;">
+          <semantic-query
+          query='SELECT ?match ?currentCanditate ?image WHERE {
+            <{{bindings.0.subject.value}}> skos:closeMatch ?match
+            OPTIONAL{
+              ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
+              BIND(str(?wikiImage) as ?image)
+            }
+            BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
+         }'
+         template="{{>possibleMatchesTemplate}}"
+         >  
+         <template id="possibleMatchesTemplate">
+           {{#each bindings}}
+              <div class="matchingCard">
+                <div class="matchingCardHeader">
+                  {{#if image.value}}
+                    <img src="{{image.value}}?width=250"/>
+                  {{/if}}
+                <div class="matchingCardHeaderInfo">
+                  <h2  style="font-size: 24px; font-weight: bold;">
+                    <mp-label iri="{{match.value}}" ></mp-label>
+                    </h2>
+                    <small><a target="_viewMatchArtist" href="{{match.value}}">View at WikiData</a></small>
+                </div>
+                <div class="actions">
+                  <semantic-form
+                    new-subject-template="{{currentCanditate.value}}"
+                    browser-persistance="true"
+                    persistence="sparql"
+                    post-action="reload"
+                    form-id="IMApprove1"
+                    fields='[[  fieldDefinitions
+                                awaiting_confirmation="http://www.researchspace.org/fieldDefinition/NotSame_ToReview_Institutions"
+                            ]]'
+                  >
+                    <semantic-form-hidden-input
+                      for="awaiting_confirmation"
+                      default-value="{{match.value}}"
+                    ></semantic-form-hidden-input>
+
+                    <button
+                      name="submit"
+                      class="btn btn-warning action reject"
+                      title="Click to reject two Repository instances as the same"
+                    > Reject </button>
+                  </semantic-form>
+                
+                <semantic-form
+                  new-subject-template="{{currentCanditate.value}}"
+                  browser-persistance="true"
+                  persistence="sparql"
+                  post-action="reload"
+                  form-id="IMApprove1"
+                  fields='[[  fieldDefinitions
+                              awaiting_confirmation="http://www.researchspace.org/fieldDefinition/Same_Institutions"
+                          ]]'
+                >
+                  <semantic-form-hidden-input
+                    for="awaiting_confirmation"
+                    default-value="{{match.value}}"
+                  ></semantic-form-hidden-input>
+
+                  <button
+                    id="1234"
+                    name="submit"
+                    class="btn btn-default action approve"
+                    title="Click to confirm two Repository instances as the same"
+                  > Confirm </button>
+                </semantic-form>
+                </div>
+              </div>
+              <div class="matchingCardBody">
+                <mp-field-visualization
+                subject="{{match.value}}"
+                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+                template='{{>workInfo}}'
+                >
+              <template id="workInfo">
+                <div class="workInfoContainer">
+                  [[> :ResourceFieldBasedVisualization subject="{{match.value}}" ]]
+                </div>
+              </template>
+              </mp-field-visualization>
+              </div>
+            </div>
+          {{/each}}
+       </template>
+       </semantic-query>
+      </div>
+    </template>
+  </semantic-query>
     </div>
 </div>

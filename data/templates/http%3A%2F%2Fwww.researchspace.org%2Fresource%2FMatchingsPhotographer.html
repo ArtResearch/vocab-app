@@ -27,7 +27,7 @@
       />
     </div>
 
-    <div class="matchingContainer" >
+    <div class="matchingContainer">
       <semantic-query
       query='
         SELECT ?subject ?recommended WHERE {
@@ -37,6 +37,7 @@
           OPTIONAL{
             ?subject skos:exactMatch ?recommended.
           }
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }LIMIT 1
       '
       template="{{>singlePhotographerTemplate}}"
@@ -177,6 +178,4 @@
     </template>
   </semantic-query>
     </div>
-    
-   
 </div>
