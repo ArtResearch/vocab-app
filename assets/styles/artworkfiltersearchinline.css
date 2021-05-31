@@ -1,5 +1,6 @@
 #artwork-filter-search-inline .semantic-table-holder {
   left: 0% !important;
+  width: 100% !important;
 }
 
 #artwork-filter-search-inline .visualizationValue {
