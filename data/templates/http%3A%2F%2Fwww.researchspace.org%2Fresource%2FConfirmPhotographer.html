@@ -118,11 +118,11 @@
                     post-action="reload"
                     form-id="IMApprove1"
                     fields='[[  fieldDefinitions
-                                awaiting_confirmation="http://www.researchspace.org/fieldDefinition/NotSame_ToReview_Photographers"
+                                confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_NotMatched_Photographers"
                             ]]'
                   >
                     <semantic-form-hidden-input
-                      for="awaiting_confirmation"
+                      for="confirmed"
                       default-value="{{match.value}}"
                     ></semantic-form-hidden-input>
 
@@ -140,11 +140,11 @@
                   post-action="reload"
                   form-id="IMApprove1"
                   fields='[[  fieldDefinitions
-                              awaiting_confirmation="http://www.researchspace.org/fieldDefinition/Same_Photographers"
+                              confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Photographers"
                           ]]'
                 >
                   <semantic-form-hidden-input
-                    for="awaiting_confirmation"
+                    for="confirmed"
                     default-value="{{match.value}}"
                   ></semantic-form-hidden-input>
 
