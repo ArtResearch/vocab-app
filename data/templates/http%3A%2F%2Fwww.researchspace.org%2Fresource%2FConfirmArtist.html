@@ -41,6 +41,7 @@
           }
           FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution> }
           FILTER EXISTS { ?subject owl:sameAs ?a }
+          FILTER NOT EXISTS {?subject <https://vocab.artresearch.net/custom/confirmed> true}
         }LIMIT 1
       '
       

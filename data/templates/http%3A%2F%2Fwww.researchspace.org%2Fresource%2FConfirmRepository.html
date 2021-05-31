@@ -39,7 +39,8 @@
               ?subject skos:exactMatch ?recommended.
             }
             FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
-          FILTER EXISTS { ?subject owl:sameAs ?a }
+            FILTER EXISTS { ?subject owl:sameAs ?a }
+            FILTER NOT EXISTS {?subject <https://vocab.artresearch.net/custom/confirmed> true}
         }LIMIT 1
       '
       no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no reconciliations to be confirmed</h1>'

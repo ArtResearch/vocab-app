@@ -40,7 +40,7 @@
             }
           }
           FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution> }
-          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+          FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
         }LIMIT 1
       '
       template="{{>singleArtistTemplate}}"
@@ -171,7 +171,7 @@
        </semantic-query>
       </div>
     </template>
-  </semantic-query>
+      </semantic-query>
     </div>
     
    
