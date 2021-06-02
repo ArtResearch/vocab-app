@@ -35,9 +35,6 @@
             ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
             ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
             ?subject skos:closeMatch ?match.
-            OPTIONAL{
-              ?subject skos:exactMatch ?recommended.
-            }
             FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
             FILTER EXISTS { ?subject owl:sameAs ?a }
             FILTER NOT EXISTS {?subject <https://vocab.artresearch.net/custom/confirmed> true}
@@ -81,7 +78,7 @@
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
-        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Confirm" or "Reject" button to verify suggested matches</h2 style="font-size: 22px;">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <semantic-query
           query='SELECT ?match ?currentCanditate ?image WHERE {
             <{{bindings.0.subject.value}}> owl:sameAs ?match
@@ -175,3 +172,15 @@
   </semantic-query>
     </div>
 </div>
+<style>
+  h4.modal-title{
+  background: #ececec;
+  margin-left: 10px;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+</style>
