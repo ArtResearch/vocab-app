@@ -106,7 +106,15 @@
                       Recommended
                     </h2>
                     {{/ifCond}}
-                    <small><a target="_viewMatchArtist" href="{{match.value}}">View at WikiData</a></small>
+                    <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
+                      <mp-overlay-dialog-trigger
+                        >
+                    <small class="clickable">View at WikiData</small>
+                      </mp-overlay-dialog-trigger>
+                      <mp-overlay-dialog-content>
+                        <iframe src="{{match.value}}"></iframe>
+                      </mp-overlay-dialog-content>
+                    </mp-overlay-dialog>
                 </div>
                 <div class="actions">                  
                   <semantic-form
