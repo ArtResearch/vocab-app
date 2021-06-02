@@ -81,7 +81,10 @@
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <semantic-query
           query='SELECT ?match ?currentCanditate ?image WHERE {
-            <{{bindings.0.subject.value}}> owl:sameAs ?match
+            <{{bindings.0.subject.value}}> owl:sameAs ?match.
+            OPTIONAL{
+              <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
+            }
             OPTIONAL{
               ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
               BIND(str(?wikiImage) as ?image)
@@ -101,6 +104,11 @@
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
                     </h2>
+                    {{#ifCond recommended.value "===" match.value }}
+                    <h2 class="recommendedText">
+                      Recommended
+                    </h2>
+                    {{/ifCond}}
                     <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                       <mp-overlay-dialog-trigger
                         >
