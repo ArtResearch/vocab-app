@@ -80,7 +80,7 @@
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <semantic-query
           query='SELECT ?match ?currentCanditate ?image WHERE {
-            <{{bindings.0.subject.value}}> owl:sameAs ?match.
+            <{{bindings.0.subject.value}}> skos:closeMatch ?match.
             OPTIONAL{
               <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
             }
