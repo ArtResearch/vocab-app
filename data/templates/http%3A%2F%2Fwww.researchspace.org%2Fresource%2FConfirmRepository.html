@@ -31,7 +31,7 @@
     <div class="matchingContainer" >
       <semantic-query
       query='
-        SELECT ?subject ?recommended WHERE {
+        SELECT ?subject WHERE {
             ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
             ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
             ?subject skos:closeMatch ?match.
@@ -51,19 +51,12 @@
               <mp-label iri="{{bindings.0.subject.value}}" ></mp-label>
             </h1>
             <small><a target="_viewSubjectRepository" href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}">View on artresearch</a></small>
-            {{#if bindings.0.recommended.value}}
-            <a target="_recommendedRepository"  href="{{bindings.0.recommended.value}}">
-              <h2 class="recommendedText">
-              View recommended match
-              </h2>
-            </a>
-            {{/if}}
           </div>
         </div>
         <div>
           <mp-field-visualization
           subject="{{bindings.0.subject.value}}"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
           template='{{>workInfo}}'
           >
         <template id="workInfo">
