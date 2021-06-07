@@ -72,7 +72,7 @@
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <semantic-query
-          query='SELECT ?match ?currentCanditate ?image WHERE {
+          query='SELECT ?match ?recommended ?currentCanditate ?image WHERE {
             <{{bindings.0.subject.value}}> skos:closeMatch ?match.
             OPTIONAL{
               <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
@@ -112,27 +112,6 @@
                     </mp-overlay-dialog>
                 </div>
                 <div class="actions">
-                  <semantic-form
-                    new-subject-template="{{currentCanditate.value}}"
-                    browser-persistance="true"
-                    persistence="sparql"
-                    post-action="reload"
-                    form-id="IMApprove1"
-                    fields='[[  fieldDefinitions
-                                confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_NotMatched_Institutions"
-                            ]]'
-                  >
-                    <semantic-form-hidden-input
-                      for="confirmed"
-                      default-value="{{match.value}}"
-                    ></semantic-form-hidden-input>
-
-                    <button
-                      name="submit"
-                      class="btn btn-warning action reject"
-                      title="Click to reject two Repository instances as the same"
-                    > Reject </button>
-                  </semantic-form>
                 
                 <semantic-form
                   new-subject-template="{{currentCanditate.value}}"
@@ -154,7 +133,7 @@
                     name="submit"
                     class="btn btn-default action approve"
                     title="Click to confirm two Repository instances as the same"
-                  > Confirm </button>
+                  > Same </button>
                 </semantic-form>
                 </div>
               </div>

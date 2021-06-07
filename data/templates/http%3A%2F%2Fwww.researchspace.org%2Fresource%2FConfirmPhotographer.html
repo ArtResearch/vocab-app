@@ -36,6 +36,7 @@
           ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
           ?subject skos:closeMatch ?recommended.
+          ?subject skos:exactMatch ?Sa. 
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }LIMIT 1
       '
