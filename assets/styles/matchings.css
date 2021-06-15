@@ -78,7 +78,13 @@
   border-radius: 5px;
   top: 200px;
   right: 4.5vw;
-  min-width: 150px;
+  min-width: 150px !important;
+  margin: 0 !important;
+}
+
+#matchings .actions .generate:active{
+  background: white !important;
+  color: black !important;
 }
 
 #matchings .actions .generate::before{
