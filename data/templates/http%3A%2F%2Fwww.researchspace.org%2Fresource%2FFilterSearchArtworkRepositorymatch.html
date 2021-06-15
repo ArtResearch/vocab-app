@@ -7,11 +7,11 @@
               escape-lucene-syntax="false"
               default-query='
               SELECT DISTINCT ?subject WHERE {
-                <[[repositoryIri]]> pharosfr:Institution_keeps_Work    ?subject .
-              }LIMIT 100'
+                <[[repositoryIri]]> pharosfr:Institution_keeps_Work ?subject .
+              }LIMIT 50'
               query='
                   SELECT DISTINCT ?subject WHERE {
-                 <[[repositoryIri]]> pharosfr:Institution_keeps_Work    ?subject . 
+                 <[[repositoryIri]]> pharosfr:Institution_keeps_Work ?subject . 
                   }'
             ></semantic-search-query-keyword>
   </div>
@@ -25,7 +25,7 @@
               SELECT DISTINCT ?subject
                 WHERE {
                   ?subject pharosfr:Work_depicted_by_Photo ?photo.
-                }LIMIT 100
+                }LIMIT 50
             " tuple-template="{{>tupleTemplate}}"
               no-result-template='[[> :CardNoResult ]]'
             >
