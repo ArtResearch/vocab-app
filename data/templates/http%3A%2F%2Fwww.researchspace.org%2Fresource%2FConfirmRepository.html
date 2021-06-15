@@ -70,7 +70,8 @@
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
-        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches or click "Generate" to create new Pharos URI</h2 style="font-size: 22px;">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
+          <small>or click "Generate" to create new Pharos URI</small>
           <semantic-query
           query='SELECT ?match ?recommended ?currentCanditate ?image WHERE {
             <{{bindings.0.subject.value}}> skos:closeMatch ?match.
@@ -102,12 +103,12 @@
                 default-value="true"
               ></semantic-form-hidden-input>
   
-              <button
+              <div
                 id="12345"
                 name="submit"
-                class="btn btn-default action approve"
+                class="btn fa fa-plus generate"
                 title="Click to generate new Pharos URI"
-              >Generate</button>
+              >Generate</div>
             </semantic-form>
           </div>
            {{#each bindings}}

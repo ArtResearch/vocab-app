@@ -70,9 +70,25 @@
   min-width: 80px;
 }
 
+#matchings .actions .generate{
+  background: white !important;
+  color: black !important;
+  box-shadow: 1px 1px 15px 5px #f0f0f0 !important;
+  position: absolute;
+  border-radius: 5px;
+  top: 200px;
+  right: 4.5vw;
+  min-width: 150px;
+}
+
+#matchings .actions .generate::before{
+  margin-right: 5px;
+}
+
 #matchings .approve {
   background-color: #007bff !important;
 }
+
 #matchings .reject {
   background-color: #6c757d !important;
   font-weight: normal !important;
