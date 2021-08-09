@@ -74,7 +74,7 @@
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">       
           <small>or click "Generate" to create new Pharos URI</small>
           <semantic-query
-       query='SELECT ?match ?currentCanditate ?image ?recommended WHERE {
+       query='SELECT ?match ?matchUrl ?currentCanditate ?image ?recommended WHERE {
          <{{bindings.0.subject.value}}> skos:closeMatch ?match.
          OPTIONAL{
           <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
@@ -87,6 +87,7 @@
           }
           BIND(str(?wikiImage) as ?image)
         }
+        BIND(REPLACE(str(?match),"http:","https:") as ?matchUrl).
         BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
       }ORDER BY DESC(?recommended)'
       template="{{>possibleMatchesTemplate}}"
@@ -137,7 +138,7 @@
                     <small class="clickable">View at WikiData</small>
                       </mp-overlay-dialog-trigger>
                       <mp-overlay-dialog-content>
-                        <iframe src="{{match.value}}"></iframe>
+                        <iframe src="{{matchUrl.value}}"></iframe>
                       </mp-overlay-dialog-content>
                     </mp-overlay-dialog>
                 </div>
