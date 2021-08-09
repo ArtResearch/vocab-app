@@ -91,7 +91,8 @@
   margin-right: 5px;
 }
 
-#matchings .approve {
+.approve {
+  background: #007bff !important;
   background-color: #007bff !important;
 }
 
