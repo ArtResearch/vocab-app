@@ -38,6 +38,7 @@
           ?subject skos:closeMatch ?match.
           ?subject rdfs:label ?label.
           FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution> }
+          FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }ORDER BY ASC (?label) LIMIT 1
       '
