@@ -94,43 +94,78 @@
        <template id="possibleMatchesTemplate">
         <div class="actions">
           <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
-            <mp-overlay-dialog-trigger
-              >
+            <mp-overlay-dialog-trigger>
   
               <button
-              id="12345"
-              name="submit"
-              class="btn fa fa-plus generate"
-              title="If no match is found, this method can be used to create a unique Pharos entity"
-            >Create a new Pharos URI</button>
+                id="12345"
+                name="submit"
+                class="btn fa fa-plus generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              >Create a new Pharos URI</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure you would like to generate a new Pharos URI?</h1>
               <h2>If yes, click on the Generate button bellow.</h2>
               <semantic-form
-              new-subject-template="{{bindings.0.currentCanditate.value}}"
-              browser-persistance="true"
-              persistence="ldp"
-              post-action="reload"
-              form-id="samehash"
-              fields='[[  fieldDefinitions
-                          confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists_Hash"
-                      ]]'
-            >
-              <semantic-form-hidden-input
-                for="confirmed"
-                default-value="true"
-              ></semantic-form-hidden-input>
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists_Hash"
+                        ]]'
+              >
+                <semantic-form-hidden-input
+                  for="confirmed"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+    
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn   action approve"
+                  title="Click to generate new Pharos URI"
+                >Generate</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        </div> 
+        <div>
+          <mp-overlay-dialog title="‎‎Give URI" >
+            <mp-overlay-dialog-trigger>
   
               <button
                 id="12345"
                 name="submit"
-                class="btn   action approve"
-                title="Click to generate new Pharos URI"
-              >Generate</button>
-            </semantic-form>
+                class="btn fa fa-plus generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              >Give ULAN URI</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Submit ULAN URI</h1>
+              <h2>And press button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            submit_uri="http://www.researchspace.org/fieldDefinition/Give_Artist_URI"
+                        ]]'
+              >
+                <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn   action approve"
+                  title="Click to generate new Pharos URI"
+                >Submit</button>
+              </semantic-form>
 
-                  </mp-overlay-dialog-content>
+            </mp-overlay-dialog-content>
           </mp-overlay-dialog>
         </div> 
         {{#each bindings}}

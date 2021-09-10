@@ -134,6 +134,42 @@
                   </mp-overlay-dialog-content>
           </mp-overlay-dialog>
         </div>
+        <div>
+          <mp-overlay-dialog title="‎‎Give URI" >
+            <mp-overlay-dialog-trigger>
+  
+              <button
+                id="12345"
+                name="submit"
+                class="btn fa fa-plus generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              >Give WikiData URI</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Submit WikiData URI</h1>
+              <h2>And press button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            submit_uri="http://www.researchspace.org/fieldDefinition/Give_Photographer_URI"
+                        ]]'
+              >
+                <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn   action approve"
+                  title="Click to generate new Pharos URI"
+                >Submit</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        </div> 
         {{#each bindings}}
            <div class="matchingCard">
              <div class="matchingCardHeader">
