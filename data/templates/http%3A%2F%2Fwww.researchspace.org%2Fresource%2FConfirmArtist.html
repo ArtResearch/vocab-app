@@ -75,7 +75,7 @@
       <div class="separatingLine"></div>
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches </h2 style="font-size: 22px;">
-        <small>or click on "Create a new Pharos URI"</small>
+        <small>or generate/submit a uri</small>
           <semantic-query
        query='SELECT ?match ?matchId ?image ?currentCanditate WHERE {
          <{{bindings.0.subject.value}}> skos:closeMatch ?match.
@@ -92,16 +92,17 @@
        template="{{>possibleMatchesTemplate}}"
        > 
        <template id="possibleMatchesTemplate">
-        <div class="actions">
+        <div class="actions actions-generate">
           <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
             <mp-overlay-dialog-trigger>
   
               <button
                 id="12345"
                 name="submit"
-                class="btn fa fa-plus generate"
+                class="btn generate"
                 title="If no match is found, this method can be used to create a unique Pharos entity"
-              >Create a new Pharos URI</button>
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Create a new Pharos URI</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure you would like to generate a new Pharos URI?</h1>
@@ -131,21 +132,19 @@
 
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
-        </div> 
-        <div>
           <mp-overlay-dialog title="‎‎Give URI" >
             <mp-overlay-dialog-trigger>
   
               <button
                 id="12345"
                 name="submit"
-                class="btn fa fa-plus generate"
+                class="btn generate"
                 title="If no match is found, this method can be used to create a unique Pharos entity"
-              >Give ULAN URI</button>
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/getty.ico"/></i>Submit ULAN URI</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
-              <h1>Submit ULAN URI</h1>
-              <h2>And press button bellow.</h2>
+              <h1>Please enter a ULAN URI</h1>
               <semantic-form
                 new-subject-template="{{bindings.0.currentCanditate.value}}"
                 browser-persistance="true"
@@ -167,6 +166,9 @@
 
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
+        </div> 
+        <div>
+
         </div> 
         {{#each bindings}}
             <div class="matchingCard">

@@ -71,7 +71,7 @@
       <div class="separatingLine"></div>
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
-          <small>or click on "Create a new Pharos URI"</small>
+          <small>or generate/submit a uri</small>
           <semantic-query
           query='SELECT ?match ?matchUrl ?recommended ?currentCanditate ?image WHERE {
             <{{bindings.0.subject.value}}> skos:closeMatch ?match.
@@ -88,17 +88,17 @@
          template="{{>possibleMatchesTemplate}}"
          >  
          <template id="possibleMatchesTemplate">
-          <div class="actions">
+          <div class="actions actions-generatections-generate">
             <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
               <mp-overlay-dialog-trigger
                 >
-    
                 <button
                 id="12345"
                 name="submit"
-                class="btn fa fa-plus generate"
+                class="btn generate"
                 title="If no match is found, this method can be used to create a unique Pharos entity"
-              >Create a new Pharos URI</button>
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Create a new Pharos URI</button>
               </mp-overlay-dialog-trigger>
               <mp-overlay-dialog-content>
                 <h1>Are you sure you would like to generate a new Pharos URI?</h1>
@@ -136,13 +136,13 @@
                 <button
                   id="12345"
                   name="submit"
-                  class="btn fa fa-plus generate"
+                  class="btn generate"
                   title="If no match is found, this method can be used to create a unique Pharos entity"
-                >Give WikiData URI</button>
+                ><i><img style="height: 15px;
+                  margin-right: 8px;" src="/assets/images/wikidata.ico"/></i> Submit WikiData URI</button>
               </mp-overlay-dialog-trigger>
               <mp-overlay-dialog-content>
-                <h1>Submit WikiData URI</h1>
-                <h2>And press button bellow.</h2>
+                <h1>Please enter a WikiData URI</h1>
                 <semantic-form
                   new-subject-template="{{bindings.0.currentCanditate.value}}"
                   browser-persistance="true"

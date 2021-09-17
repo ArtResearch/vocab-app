@@ -70,14 +70,17 @@
   min-width: 80px;
 }
 
+.actions-generate{
+  gap: 25px;
+  margin-top: 15px;
+  margin-bottom: 40px;
+  justify-content: flex-start !important;
+}
 #matchings .actions .generate{
   background: white !important;
   color: black !important;
   box-shadow: 1px 1px 15px 5px #f0f0f0 !important;
-  position: absolute;
   border-radius: 5px;
-  top: 200px;
-  right: 4.5vw;
   min-width: 150px !important;
   margin: 0 !important;
 }
