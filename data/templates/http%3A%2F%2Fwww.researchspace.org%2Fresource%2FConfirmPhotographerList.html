@@ -11,7 +11,7 @@
             <i class="fa fa-arrow-left"></i> Back
           </div>
         </semantic-link>
-        Confirm artist matchings
+       Confirm photographer matchings
       </h1>
     </div>
 
@@ -27,37 +27,29 @@
         style="height: 80px"
         src='../../assets/images/logos/[[urlParam "partnerimage"]]'
       />
-    </div>
 
-    <div class="matchingContainer" >
-     
+    </div>
+    <div class="matchingContainer">
       <semantic-table
       query='
-      SELECT ?Artist  WHERE {
-          ?Artist <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?Artist a <https://pharos.artresearch.net/resource/custom/fc/artist>.
-          ?Artist skos:closeMatch ?match.
-          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/institution> }
-          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
-          FILTER NOT EXISTS { ?Artist owl:sameAs ?a }
+        SELECT ?subject  WHERE {
+          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
+      
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }
       '
-      
       no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
-      template="{{>ArtistsTemplate}}"
+      template="{{>singlePhotographerTemplate}}"
       >
-      <template id="ArtistsTemplate">
-        {{#each bindings}}
-         <semantic-link
+        <template id="singlePhotographerTemplate">
        
-        iri="Default:ConfirmArtist"
-      ></semantic-link>
-      {{/each}}
       </template>
+  
     </div>
 </div>
 <style>
- .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+.modal-dialog.overlay-lightbox__dialog.modal-dialog  h4.modal-title{
   background: #eaeaea;
   padding: 1vh;
   color: black;
@@ -65,20 +57,5 @@
   padding-left: 35px;
   border-radius: 25px;
   text-transform: none;
-}
-
-.matchingContainer{
-  display: unset !important;
-
-}
-.compare{
-  margin: 100px !important;
-  display: flex !important;
-  border-style: solid;
-  border-color: #e5e5e5;
-}
-.candidate
-{
-  width: unset !important;
 }
 </style>
