@@ -1,0 +1,77 @@
+<div id="matchings">
+  <!-- PHAROS SECTION -->
+  <div>
+    <div class="jumbotron">
+      <h1 style="margin-left: 13vw; display: flex" class="display-13">
+        <semantic-link 
+        urlqueryparam-partner='[[urlParam "partner"]]'
+        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+        iri="Default:PartnerCategorySelect">
+          <div class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+          </div>
+        </semantic-link>
+        Confirm artist matchings
+      </h1>
+    </div>
+
+    <div
+      title="Your selected provider"
+      style="
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+      "
+    >
+      <img
+        style="height: 80px"
+        src='../../assets/images/logos/[[urlParam "partnerimage"]]'
+      />
+    </div>
+
+    <div class="matchingContainer" >
+     
+      <semantic-table
+      query='
+      SELECT ?Artist  WHERE {
+          ?Artist <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?Artist a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+          ?Artist skos:closeMatch ?match.
+          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/institution> }
+          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
+          FILTER NOT EXISTS { ?Artist owl:sameAs ?a }
+        }
+      '
+      
+      no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
+      template="{{>ArtistsTemplate}}"
+      >
+      </semantic-table>
+    </div>
+</div>
+<style>
+ .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+  background: #eaeaea;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+
+.matchingContainer{
+  display: unset !important;
+
+}
+.compare{
+  margin: 100px !important;
+  display: flex !important;
+  border-style: solid;
+  border-color: #e5e5e5;
+}
+.candidate
+{
+  width: unset !important;
+}
+</style>
