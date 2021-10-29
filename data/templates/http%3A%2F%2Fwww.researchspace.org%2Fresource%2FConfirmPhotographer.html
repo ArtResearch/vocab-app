@@ -6,7 +6,7 @@
         <semantic-link 
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:PartnerCategorySelect">
+        iri="Default:PartnerCategorySelectList">
           <div class="btn btn-secondary">
             <i class="fa fa-arrow-left"></i> Back
           </div>
@@ -37,6 +37,7 @@
           ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
           ?subject skos:closeMatch ?recommended.
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+           BIND(<[[urlParam "subject"]]> as ?subject)
         }LIMIT 1
       '
       no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
@@ -213,7 +214,11 @@
                       new-subject-template="{{currentCanditate.value}}"
                       browser-persistance="true"
                       persistence="ldp"
-                      post-action="reload"
+                       subject="Default:ConfirmPhotographerList"
+                      urlqueryparam-partner='[[urlParam "partner"]]'
+                      urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                      browser-persistance="true"
+                      post-action="redirect"
                       form-id="IMApprove1"
                       fields='[[  fieldDefinitions
                                   confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Photographers"

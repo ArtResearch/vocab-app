@@ -40,6 +40,7 @@
           FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+            BIND(<[[urlParam "subject"]]> as ?subject)
         }ORDER BY ASC (?label) LIMIT 1
       '
       
@@ -213,7 +214,12 @@
                             new-subject-template="{{currentCanditate.value}}"
                             browser-persistance="true"
                             persistence="ldp"
-                            post-action="reload"
+                             subject="Default:ConfirmArtistList"
+                            post-action="redirect"
+                            urlqueryparam-partner='[[urlParam "partner"]]'
+                            urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                            browser-persistance="true"
+
                             form-id="IMApprove1"
                             fields='[[  fieldDefinitions
                                         confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists"

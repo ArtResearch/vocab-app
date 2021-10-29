@@ -6,7 +6,7 @@
         <semantic-link 
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:PartnerCategorySelect">
+        iri="Default:PartnerCategorySelectList">
           <div class="btn btn-secondary">
             <i class="fa fa-arrow-left"></i> Back
           </div>
@@ -39,11 +39,19 @@
             FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }LIMIT 1
       '
-      no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
-      template="{{>singleRepositoryTemplate}}"
+     tuple-template="{{>singleRepositoryTemplate}}"
       >
         <template id="singleRepositoryTemplate">
+          <div style="width:100%; " class="results-row">
+          <semantic-link iri="Default:ConfirmPhotographer"   
+            urlqueryparam-partner='[[urlParam "partner"]]'
+            urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+            urlqueryparam-subject="{{subject.value}}">
+         <mp-label iri="{{subject.value}}"> </mp-label></semantic-link>
+         <hr>
+            </div>
         </template>
+      </semantic-table>
 </div>
 <style>
  .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
