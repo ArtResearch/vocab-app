@@ -11,7 +11,7 @@
             <i class="fa fa-arrow-left"></i> Back
           </div>
         </semantic-link>
-        Confirm artist matchings
+        List of artist matchings
       </h1>
     </div>
 
@@ -40,7 +40,6 @@
           FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?Artist owl:sameAs ?a }
-          
         }
       '
      tuple-template="{{>singleRepositoryTemplate}}"
