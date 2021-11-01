@@ -51,7 +51,30 @@
             urlqueryparam-partner='[[urlParam "partner"]]'
             urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
             urlqueryparam-subject="{{Artist.value}}">
-         <mp-label iri="{{Artist.value}}"> </mp-label></semantic-link>
+            <div class="matchNresults">
+         <mp-label iri="{{Artist.value}}"> </mp-label>
+                   <semantic-query
+              query='SELECT  (COUNT(?match) as ?count)  WHERE {
+         <{{Artist.value}}> skos:closeMatch ?match.
+         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
+         OPTIONAL{
+          <{{Artist.value}}> skos:exactMatch ?recommended.
+          }
+         OPTIONAL{
+           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           BIND(str(?wikiImage) as ?image)
+         }
+         BIND(<{{Artist.value}}> as ?currentCanditate)
+       }ORDER BY DESC(?recommended)'
+              template='{{> countTermplate }}'>
+               <template id='countTermplate'>
+                 {{#each bindings}}
+                  <div class="results-match"> ({{count.value}}) </div>
+                 {{/each}}
+               </template>
+            </semantic-query>
+          </div></semantic-link>
+         
             <hr>
             </div>
         </template>
@@ -83,4 +106,11 @@
 {
   width: unset !important;
 }
+
+.matchNresults{
+  display: flex;
+  text-decoration: underline;
+
+}
+
 </style>

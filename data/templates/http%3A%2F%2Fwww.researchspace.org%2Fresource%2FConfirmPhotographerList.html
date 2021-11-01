@@ -47,7 +47,33 @@
             urlqueryparam-partner='[[urlParam "partner"]]'
             urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
             urlqueryparam-subject="{{subject.value}}">
-         <mp-label iri="{{subject.value}}"> </mp-label></semantic-link>
+                        <div class="matchNresults">
+         <mp-label iri="{{subject.value}}"> </mp-label>
+         <semantic-query
+              query='SELECT  (COUNT(?match) as ?count)  WHERE {
+         <{{subject.value}}> skos:closeMatch ?match.
+         OPTIONAL{
+          <{{subject.value}}> skos:exactMatch ?recommended.
+        }
+         OPTIONAL{
+          {
+            ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+          }UNION{
+            ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
+          }
+          BIND(str(?wikiImage) as ?image)
+        }
+        BIND(REPLACE(str(?match),"http:","https:") as ?matchUrl).
+        BIND(<{{subject.value}}> as ?currentCanditate)
+      }ORDER BY DESC(?recommended)'
+              template='{{> countTermplate }}'>
+               <template id='countTermplate'>
+                 {{#each bindings}}
+                <div class="results-match"> ({{count.value}}) </div>
+                 {{/each}}
+               </template>
+            </semantic-query></div></semantic-link>
+          
          <hr>
             </div>
         </template>
@@ -64,5 +90,10 @@
   padding-left: 35px;
   border-radius: 25px;
   text-transform: none;
+}
+.matchNresults{
+  display: flex;
+  text-decoration: underline;
+
 }
 </style>
