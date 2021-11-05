@@ -1,0 +1,268 @@
+<div id="matchings">
+  <!-- PHAROS SECTION -->
+  <div>
+    <div class="jumbotron">
+      <h1 style="margin-left: 13vw; display: flex" class="display-13">
+        <semantic-link 
+        urlqueryparam-partner='[[urlParam "partner"]]'
+        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+        iri="Default:PartnerCategorySelect">
+          <div class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+          </div>
+        </semantic-link>
+        Confirm Place matchings
+      </h1>
+    </div>
+
+    <div
+      title="Your selected provider"
+      style="
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+      "
+    >
+      <img
+        style="height: 80px"
+        src='../../assets/images/logos/[[urlParam "partnerimage"]]'
+      />
+    </div>
+
+    <div class="matchingContainer" >
+      <semantic-query
+      query='
+      SELECT ?subject WHERE {
+          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://pharos.artresearch.net/resource/custom/fc/place>.
+          ?subject skos:closeMatch ?match.
+          ?subject rdfs:label ?label.
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+        }ORDER BY ASC (?label) LIMIT 1
+      '
+      
+      no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
+      template="{{>singlePlaceTemplate}}"
+      >
+        <template id="singlePlaceTemplate">
+      <div class="canditate">
+        <div style="display: flex;">
+          <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
+          <div style="display: flex; flex-direction: column; margin-left: 15px;">
+            <h1 style="font-size: 32px !important">     
+              <mp-label iri="{{bindings.0.subject.value}}" ></mp-label>
+            </h1>
+            <small class="clickable"><a target="_viewSubjectPlace" href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}">View on artresearch</a></small>
+          </div>
+        </div>
+        <div>
+          <mp-field-visualization
+          subject="{{bindings.0.subject.value}}"
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/domain> crm:E21_Person. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          template='{{>workInfo}}'
+          >
+        <template id="workInfo">
+          <div class="workInfoContainer">
+            [[> :ResourceFieldBasedVisualization subject="{{bindings.0.subject.value}}" ]]
+          </div>
+        </template>
+        </mp-field-visualization>
+        </div>
+      </div>
+      <div class="separatingLine"></div>
+      <div class="canditate">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches </h2 style="font-size: 22px;">
+        <small>or generate/submit a uri</small>
+          <semantic-query
+       query='SELECT ?match ?matchId ?image ?currentCanditate WHERE {
+         <{{bindings.0.subject.value}}> skos:closeMatch ?match.
+         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
+         OPTIONAL{
+          <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
+          }
+         OPTIONAL{
+           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           BIND(str(?wikiImage) as ?image)
+         }
+         BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
+       }ORDER BY DESC(?recommended)'
+       template="{{>possibleMatchesTemplate}}"
+       > 
+       <template id="possibleMatchesTemplate">
+        <div class="actions actions-generate">
+          <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
+            <mp-overlay-dialog-trigger>
+  
+              <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Create a new Pharos URI</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure you would like to generate a new Pharos URI?</h1>
+              <h2>If yes, click on the Generate button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Places_Hash"
+                        ]]'
+              >
+                <semantic-form-hidden-input
+                  for="confirmed"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+    
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn   action approve"
+                  title="Click to generate new Pharos URI"
+                >Generate</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+          <mp-overlay-dialog title="‎‎Give URI" >
+            <mp-overlay-dialog-trigger>
+  
+              <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/getty.ico"/></i>Submit ULAN URI</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Please enter a ULAN URI</h1>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="uriSubmit"
+                fields='[[  fieldDefinitions
+                            submit_uri="http://www.researchspace.org/fieldDefinition/Give_Place_URI"
+                        ]]'
+              >
+                <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn   action approve"
+                  title="Click to generate new Pharos URI"
+                >Submit</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        </div> 
+        <div>
+
+        </div> 
+        {{#each bindings}}
+            <div class="matchingCard">
+              <div class="matchingCardHeader">
+                {{#if image.value}}
+                  <img src="{{image.value}}?width=250"/>
+                {{/if}}
+                <div class="matchingCardHeaderInfo">
+                  <h2  style="font-size: 24px; font-weight: bold;">
+                    <mp-label iri="{{match.value}}" ></mp-label>
+                    </h2>
+                    {{#ifCond recommended.value "===" match.value }}
+                    <h2 class="recommendedText">
+                      Recommended
+                    </h2>
+                    {{/ifCond}}
+                    <mp-overlay-dialog title="‎‎{{match.value}} " type="lightbox">
+                      <mp-overlay-dialog-trigger
+                        >
+                    <small class="clickable">View at Getty</small>
+                      </mp-overlay-dialog-trigger>
+                      <mp-overlay-dialog-content>
+                        <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
+                      </mp-overlay-dialog-content>
+                    </mp-overlay-dialog>
+                </div>
+                <div class="actions">
+                  <mp-overlay-dialog title="‎‎Confirm matching" >
+                    <mp-overlay-dialog-trigger
+                      >
+                          <button
+                          id="1234"
+                          name="submit"
+                          class="btn btn-default action approve"
+                          title="Click to confirm two Place instances as the same"
+                        > Same </button>
+                        </mp-overlay-dialog-trigger>
+                        <mp-overlay-dialog-content>
+                            <h1>Are you sure you want to create this matching?</h1>
+                            <h2>If yes, click on "Confirm" button bellow.</h2>
+                            <semantic-form
+                            new-subject-template="{{currentCanditate.value}}"
+                            browser-persistance="true"
+                            persistence="ldp"
+                            post-action="reload"
+                            form-id="IMApprove1"
+                            fields='[[  fieldDefinitions
+                                        confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Places"
+                                    ]]'
+                          >
+                            <semantic-form-hidden-input
+                              for="confirmed"
+                              default-value="{{match.value}}"
+                            ></semantic-form-hidden-input>
+          
+                            <button
+                            id="1234"
+                            name="submit"
+                            class="btn btn-default action approve"
+                            title="Click to confirm two Place instances as the same"
+                            > Confirm </button>
+                          </semantic-form>
+                          </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+                </semantic-form>
+                </div>
+              </div>
+              <div class="matchingCardBody">
+                <mp-field-visualization
+                subject="{{match.value}}"
+                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+                template='{{>workInfo}}'
+                >
+              <template id="workInfo">
+                <div class="workInfoContainer">
+                  [[> :ResourceFieldBasedVisualization subject="{{match.value}}" ]]
+                </div>
+              </template>
+              </mp-field-visualization>
+              </div>
+            </div>
+          {{/each}}
+       </template>
+       </semantic-query>
+      </div>
+    </template>
+  </semantic-query>
+    </div>
+</div>
+<style>
+ .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+  background: #eaeaea;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+</style>
