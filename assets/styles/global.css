@@ -26,7 +26,14 @@ body {
   letter-spacing: 0.3px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
+.h1, .rs-h1, h1 {
+  font-weight: 500 !important;
+}
 
+.navbar {
+    min-height: var(--nav-height,58px) !important;
+    height: var(--nav-height,58px) !important;
+  }
 iframe{
   border-radius: 5px;
   border: 1px solid #d8d8d8;
