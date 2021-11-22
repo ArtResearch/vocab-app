@@ -1,0 +1,115 @@
+<div id="matchings">
+  <!-- PHAROS SECTION -->
+  <div>
+    <div class="jumbotron">
+      <h1 style="margin-left: 13vw; display: flex" class="display-13">
+        <semantic-link 
+        urlqueryparam-partner='[[urlParam "partner"]]'
+        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+        iri="Default:PartnerCategorySelectList">
+          <div class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+          </div>
+        </semantic-link>
+        List of artist matchings
+      </h1>
+    </div>
+
+    <div
+      title="Your selected provider"
+      style="
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+      "
+    >
+      <img
+        style="height: 80px"
+        src='../../assets/images/logos/[[urlParam "partnerimage"]]'
+      />
+    </div>
+
+    <div class="matchingContainer" >
+     
+      <semantic-table
+      query='
+      SELECT ?Artist  WHERE {
+          ?Artist <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?Artist a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+          ?Artist skos:closeMatch ?match.
+          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/institution> }
+          FILTER NOT EXISTS { ?Artist a <https://pharos.artresearch.net/resource/custom/fc/photographer> }
+          FILTER NOT EXISTS { ?Artist owl:sameAs ?a }
+        }
+      '
+     tuple-template="{{>singleRepositoryTemplate}}"
+      >
+        <template id="singleRepositoryTemplate">
+          <div style="width:100%; " class="results-row">
+          <semantic-link iri="Default:ConfirmPhotographer"   
+            urlqueryparam-partner='[[urlParam "partner"]]'
+            urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+            urlqueryparam-subject="{{Artist.value}}">
+            <div class="matchNresults">
+         <mp-label iri="{{Artist.value}}"> </mp-label>
+                   <semantic-query
+              query='SELECT  (COUNT(?match) as ?count)  WHERE {
+         <{{Artist.value}}> skos:closeMatch ?match.
+         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
+         OPTIONAL{
+          <{{Artist.value}}> skos:exactMatch ?recommended.
+          }
+         OPTIONAL{
+           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           BIND(str(?wikiImage) as ?image)
+         }
+         BIND(<{{Artist.value}}> as ?currentCanditate)
+       }ORDER BY DESC(?recommended)'
+              template='{{> countTermplate }}'>
+               <template id='countTermplate'>
+                 {{#each bindings}}
+                  <div class="results-match"> ({{count.value}}) </div>
+                 {{/each}}
+               </template>
+            </semantic-query>
+          </div></semantic-link>
+         
+            <hr>
+            </div>
+        </template>
+      </semantic-table>
+    </div>
+</div>
+<style>
+ .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+  background: #eaeaea;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+
+.matchingContainer{
+  display: unset !important;
+
+}
+.compare{
+  margin: 100px !important;
+  display: flex !important;
+  border-style: solid;
+  border-color: #e5e5e5;
+}
+.candidate
+{
+  width: unset !important;
+}
+
+.matchNresults{
+  display: flex;
+  text-decoration: underline;
+
+}
+
+</style>

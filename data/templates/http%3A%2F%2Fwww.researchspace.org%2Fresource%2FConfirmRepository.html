@@ -6,7 +6,7 @@
         <semantic-link 
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:PartnerCategorySelect">
+        iri="Default:PartnerCategorySelectList">
           <div class="btn btn-secondary">
             <i class="fa fa-arrow-left"></i> Back
           </div>
@@ -32,11 +32,7 @@
       <semantic-query
       query='
         SELECT ?subject WHERE {
-            ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-            ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
-            ?subject skos:closeMatch ?match.
-            FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
-            FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+            BIND(<[[urlParam "subject"]]> as ?subject)
         }LIMIT 1
       '
       no-result-template='<h1 style="text-align: center;width: 100%;">Currently there are no more reconciliations to be confirmed</h1>'
@@ -206,9 +202,12 @@
                       <h2>If yes, click on "Confirm" button bellow.</h2>
                       <semantic-form
                       new-subject-template="{{currentCanditate.value}}"
+                      subject="Default:ConfirmRepositoryList"
+                      urlqueryparam-partner='[[urlParam "partner"]]'
+                      urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                       browser-persistance="true"
                       persistence="ldp"
-                      post-action="reload"
+                      post-action="redirect"
                       form-id="IMApprove1"
                       fields='[[  fieldDefinitions
                                   confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Institutions"
