@@ -23,11 +23,7 @@
       margin-bottom: 26px;
     }
 
-    .tree-view_item {
 
-      display: flex;
-      align-items: baseline;
-    }
     
   </style>
   
@@ -61,10 +57,10 @@
               </ul>
               </bs-alert>
             </div>
-            <div style='position: absolute; right: 0;'>
+            <div class="PosAbsolute" style=' right: 0;'>
               [[#if isRoot]]
                 <mp-ldp-import-resource container="http://www.researchspace.org/resource/system/rootContainer">
-                  <button class="btn btn-primary" style='margin-left: 10px' title='Should be only used to import existing containers into the new installation!'>
+                  <button class="btn btn-primary marginLeft10"  title='Should be only used to import existing containers into the new installation!'>
                     <i class="fa fa-upload" aria-hidden="true"></i> Import Container</button>
                 </mp-ldp-import-resource>
               [[else]]
@@ -103,13 +99,13 @@
 
                       <mp-ldp-export-resource iri="{{data.node.value}}">
                         <button class="btn btn-xs btn-grey" title="Export" style="margin-right: 5px;">
-                          <i class="fa fa-download" style="padding:0px" aria-hidden=true></i>
+                          <i class="fa fa-download Padding0"  aria-hidden=true></i>
                         </button>
                       </mp-ldp-export-resource>
                       {{#ifCond data.node.value "!==" "http://www.researchspace.org/resource/system/rootContainer"}}
                         <mp-ldp-remove-from-container-action iri="{{data.node.value}}" container="{{data.parent.value}}">
                           <button class="btn btn-xs btn-grey btn-danger" title="Delete">
-                            <i class="fa fa-trash" style="padding:0px" aria-hidden=true></i></button>
+                            <i class="fa fa-trash Padding0"  aria-hidden=true></i></button>
                         </mp-ldp-remove-from-container-action>   
                       {{/ifCond}}
                     </div>
@@ -120,7 +116,7 @@
 
             [[#if (ask "PREFIX ldp: <http://www.w3.org/ns/ldp#> ASK {?? ldp:contains ?c. MINUS { ?c a ldp:Container .} }")]]
           [[!--    <h2> Resources </h2> --]]
-              <div style='position: absolute; right: 280px;'>
+              <div  class="PosAbsolute" style=' right: 280px;'>
                 [[> http://www.researchspace.org/resource/assets/LdpContainerActionExport]]
               </div>
               <semantic-context repository='assets'>

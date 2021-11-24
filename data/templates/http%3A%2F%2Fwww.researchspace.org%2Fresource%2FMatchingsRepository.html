@@ -1,6 +1,6 @@
   <div id="matchings">
     <div class="jumbotron">
-      <h1 style="margin-left: 13vw; display: flex" class="display-13">
+      <h1  class="display-13 jumbotronmargin displayFlex">
         <semantic-link 
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
@@ -15,11 +15,7 @@
 
     <div
       title="Your selected provider"
-      style="
-        position: fixed;
-        left: 15px;
-        bottom: 15px;
-      "
+      class="selectedProvider"
     >
       <img
         style="height: 80px"
@@ -45,9 +41,9 @@
       >
         <template id="singleRepositoryTemplate">
       <div class="canditate">
-        <div style="display: flex;">
+        <div class="displayFlex">
           <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
-          <div style="display: flex; flex-direction: column; margin-left: 15px;">
+          <div class="displayFlexColumn marginLeft15">
             <h1 style="font-size: 32px !important">     
               <mp-label iri="{{bindings.0.subject.value}}" ></mp-label>
             </h1>
@@ -78,7 +74,7 @@
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
-        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" or "Not same" button to suggest a match</h2 style="font-size: 22px;">
+        <h2 class="marginBottom4" style="font-size: 22px; ">Click on "Same" or "Not same" button to suggest a match</h2 style="font-size: 22px;">
        
           <semantic-query
           query='SELECT ?match ?currentCanditate ?image WHERE {
