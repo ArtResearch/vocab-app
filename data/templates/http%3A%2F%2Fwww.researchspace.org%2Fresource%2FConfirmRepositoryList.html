@@ -31,13 +31,13 @@
     <div class="matchingContainer" >
       <semantic-table
       query='
-        SELECT ?subject WHERE {
+        SELECT DISTINCT ?subject WHERE {
             ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
             ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
             ?subject skos:closeMatch ?match.
             FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
             FILTER NOT EXISTS { ?subject owl:sameAs ?a }
-        }LIMIT 1
+        }
       '
      tuple-template="{{>singleRepositoryTemplate}}"
       >
