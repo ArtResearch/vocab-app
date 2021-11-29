@@ -32,53 +32,31 @@
     <div class="matchingContainer">
       <semantic-table
       query='
-        SELECT ?subject  WHERE {
+        SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
           ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
-      
+          ?subject skos:closeMatch ?match.
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
-        }
-      '
-         tuple-template="{{>singleRepositoryTemplate}}"
+        }  GROUP BY ?subject ORDER BY DESC(?count)'
+        options='{"showFilter":true, "resultsPerPage":10}'
+        number-of-displayed-rows="10"
+        column-configuration='[
+        {"variableName": "subject", "displayName": "Photographer", 
+        "cellTemplate": "{{>singlePhotographerTemplate}}"},
+        {"variableName": "count", "displayName": "Number of matchings"}
+        ]'
       >
-        <template id="singleRepositoryTemplate">
-          <div style="width:100%; " class="results-row">
-          <semantic-link iri="Default:ConfirmPhotographer"   
-            urlqueryparam-partner='[[urlParam "partner"]]'
-            urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-            urlqueryparam-subject="{{subject.value}}">
-                        <div class="matchNresults">
-         <mp-label iri="{{subject.value}}"> </mp-label>
-         <semantic-query
-              query='SELECT  (COUNT(?match) as ?count)  WHERE {
-         <{{subject.value}}> skos:closeMatch ?match.
-         OPTIONAL{
-          <{{subject.value}}> skos:exactMatch ?recommended.
-        }
-         OPTIONAL{
-          {
-            ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
-          }UNION{
-            ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
-          }
-          BIND(str(?wikiImage) as ?image)
-        }
-        BIND(REPLACE(str(?match),"http:","https:") as ?matchUrl).
-        BIND(<{{subject.value}}> as ?currentCanditate)
-      }ORDER BY DESC(?recommended)'
-              template='{{> countTermplate }}'>
-               <template id='countTermplate'>
-                 {{#each bindings}}
-                <div class="results-match"> ({{count.value}}) </div>
-                 {{/each}}
-               </template>
-            </semantic-query></div></semantic-link>
-          
-         <hr>
-            </div>
+        <template id="singlePhotographerTemplate">
+            <semantic-link iri="Default:ConfirmPhotographer"   
+              urlqueryparam-partner='[[urlParam "partner"]]'
+              urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+              urlqueryparam-subject="{{subject.value}}">
+                <div class="matchNresults">
+                  <mp-label iri="{{subject.value}}"></mp-label>
+                </div>
+            </semantic-link>
         </template>
       </semantic-table>
-  
     </div>
 </div>
 <style>
