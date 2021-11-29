@@ -25,54 +25,7 @@
         src='../../assets/images/logos/[[urlParam "partnerimage"]]'
       />
     </div>
-    <!-- <div style="margin-left: 13vw">
-      <h2 style="font-size: 22px">Create reconciliations</h2>
-      <hr />
-    </div>
 
-    <div class="card-list">
-      <semantic-link
-        urlqueryparam-partner='[[urlParam "partner"]]'
-        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:MatchingsArtist"
-      >
-        <div class="card" title="View artist matchings">
-          <img
-            class="matchingImage"
-            src="../../assets/images/media/artist_matchings.jpg"
-          />
-          <div class="title">Artist</div>
-        </div>
-      </semantic-link>
-
-      <semantic-link
-        urlqueryparam-partner='[[urlParam "partner"]]'
-        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:MatchingsPhotographer"
-      >
-        <div class="card" title="View photographer matchings">
-          <img
-            class="matchingImage"
-            src="../../assets/images/media/photographer_matchings.jpg"
-          />
-          <div class="title">Photographer</div>
-        </div>
-      </semantic-link>
-
-      <semantic-link
-        urlqueryparam-partner='[[urlParam "partner"]]'
-        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:MatchingsRepository"
-      >
-        <div class="card" title="View repository matchings">
-          <img
-            class="matchingImage"
-            src="../../assets/images/media/repository_matchings.jpg"
-          />
-          <div class="title">Repository</div>
-        </div>
-      </semantic-link>
-    </div> -->
     <div style="margin-left: 13vw">
       <h2 style="font-size: 22px">Reconcile</h2>
       <hr />
@@ -81,7 +34,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ConfirmArtist"
+        iri="Default:ConfirmArtistList"
       >
         <div class="card" title="View artist reconciliations">
           <img
@@ -95,7 +48,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ConfirmPhotographer"
+        iri="Default:ConfirmPhotographerList"
       >
         <div class="card" title="View photographer reconciliations">
           <img
@@ -109,7 +62,7 @@
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ConfirmRepository"
+        iri="Default:ConfirmRepositoryList"
       >
         <div class="card" title="View repository reconciliations">
           <img
@@ -120,11 +73,10 @@
         </div>
       </semantic-link>
 
-      
       <semantic-link
         urlqueryparam-partner='[[urlParam "partner"]]'
         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ConfirmPlace"
+        iri="Default:ConfirmPlaceList"
       >
         <div class="card" title="View Place reconciliations">
           <img
@@ -135,21 +87,51 @@
         </div>
       </semantic-link>
 
+      <semantic-link
+      urlqueryparam-partner='[[urlParam "partner"]]'
+      urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+      iri="Default:ConfirmTypeList"
+    >
+      <div class="card" title="View Type reconciliations">
+        <img
+          class="matchingImage"
+          src="../../assets/images/media/type_reconciliation.jpg"
+        />
+        <div class="title">Type</div>
+      </div>
+    </semantic-link>
+
+    <semantic-link
+    urlqueryparam-partner='[[urlParam "partner"]]'
+    urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+    iri="Default:ConfirmMaterialList"
+  >
+    <div class="card" title="View Material reconciliations">
+      <img
+        class="matchingImage"
+        src="../../assets/images/media/material_reconciliation.jpg"
+      />
+      <div class="title">Material</div>
+    </div>
+  </semantic-link>
+
+  <semantic-link
+  urlqueryparam-partner='[[urlParam "partner"]]'
+  urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+  iri="Default:ConfirmTechniqueList"
+>
+  <div class="card" title="View Technique reconciliations">
+    <img
+      class="matchingImage"
+      src="../../assets/images/media/technique_reconciliation.jpg"
+    />
+    <div class="title">Technique</div>
+  </div>
+</semantic-link>
 
 
-      <!-- <semantic-link
-        urlqueryparam-partner='[[urlParam "partner"]]'
-        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-        iri="Default:ConfirmPlace"
-      >
-        <div class="card" title="View place reconciliations">
-          <img
-            class="matchingImage"
-            src="../../assets/images/media/place_reconciliation.jpg"
-          />
-          <div class="title">Place</div>
-        </div>
-      </semantic-link> -->
+
+
     </div>
   </div>
 
@@ -165,3 +147,4 @@
   }
 
 </style>
+
