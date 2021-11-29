@@ -35,7 +35,9 @@
         SELECT ?subject ?recommended WHERE {
           ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
-          ?subject skos:closeMatch ?recommended.
+          OPTIONAL{
+            ?subject skos:closeMatch ?recommended.
+          }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
            BIND(<[[urlParam "subject"]]> as ?subject)
         }LIMIT 1
@@ -72,8 +74,6 @@
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
-        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">       
-          <small>oor generate/submit a uri</small>
           <semantic-query
        query='SELECT ?match ?matchUrl ?currentCanditate ?image ?recommended WHERE {
          <{{bindings.0.subject.value}}> skos:closeMatch ?match.
@@ -92,8 +92,11 @@
         BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
       }ORDER BY DESC(?recommended)'
       template="{{>possibleMatchesTemplate}}"
+      no-result-template="{{>onlyGenerateButtons}}"
       >  
       <template id="possibleMatchesTemplate">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">       
+          <small>or generate/submit a uri</small>
         <div class="actions actions-generate">
           <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
             <mp-overlay-dialog-trigger
@@ -257,6 +260,96 @@
             </div>
           {{/each}}
        </template>
+       <template id="onlyGenerateButtons">
+        <semantic-query query='
+        SELECT ?currentCanditate WHERE {
+         BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
+        }LIMIT 1
+        '
+        template='{{>noSuggestedMatchings}}'
+        >
+        <template id='noSuggestedMatchings'>
+          <h2 style="font-size: 22px; margin-bottom: 4vh;">Generate a Pharos URI or provide a WikiData URI</h2 style="font-size: 22px;"> 
+          <div class="actions actions-generate">
+            <mp-overlay-dialog title="Confirm Pharos URI generation" >
+              <mp-overlay-dialog-trigger
+                >
+    
+                <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to create a unique Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Create a new Pharos URI</button>
+              </mp-overlay-dialog-trigger>
+              <mp-overlay-dialog-content>
+                <h1>Are you sure you would like to generate a new Pharos URI?</h1>
+                <h2>If yes, click on the Generate button bellow.</h2>
+                <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Photographers_Hash"
+                        ]]'
+              >
+                <semantic-form-hidden-input
+                  for="confirmed"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+    
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn  action approve"
+                  title="Click to generate new Pharos URI"
+                >Generate</button>
+              </semantic-form>
+  
+                    </mp-overlay-dialog-content>
+            </mp-overlay-dialog>
+            <mp-overlay-dialog title="‎‎Give URI" >
+              <mp-overlay-dialog-trigger>
+    
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn generate"
+                  title="If no match is found, this method can be used to create a unique Pharos entity"
+                ><i><img style="height: 15px;
+                  margin-right: 8px;" src="/assets/images/wikidata.ico"/></i>Submit WikiData URI</button>
+              </mp-overlay-dialog-trigger>
+              <mp-overlay-dialog-content>
+                <h1>Please enter a WikiData URI</h1>
+                <semantic-form
+                  new-subject-template="{{bindings.0.currentCanditate.value}}"
+                  browser-persistance="true"
+                  persistence="ldp"
+                  post-action="reload"
+                  form-id="uriSubmit"
+                  fields='[[  fieldDefinitions
+                              submit_uri="http://www.researchspace.org/fieldDefinition/Give_Photographer_URI"
+                          ]]'
+                >
+                  <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                  <button
+                    id="12345"
+                    name="submit"
+                    class="btn   action approve"
+                    title="Click to generate new Pharos URI"
+                  >Submit</button>
+                </semantic-form>
+  
+              </mp-overlay-dialog-content>
+            </mp-overlay-dialog>
+          </div>
+          </template>
+          </semantic-query>
+          </template>
+
        </semantic-query>
       </div>
     </template>
