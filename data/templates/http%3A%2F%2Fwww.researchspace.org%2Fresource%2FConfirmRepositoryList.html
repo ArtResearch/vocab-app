@@ -1,6 +1,4 @@
-<div id="matchings">
-  <!-- PHAROS SECTION -->
-  <div>
+<div id="matchings" class="matching-list">
     <div class="jumbotron">
       <h1 style="margin-left: 13vw; display: flex" class="display-13">
         <semantic-link 
@@ -54,13 +52,23 @@
               urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
               urlqueryparam-subject="{{subject.value}}">
                 <div class="matchNresults">
-                <mp-label iri="{{subject.value}}"> </mp-label>
+                <mp-label iri="{{subject.value}}"></mp-label>
+                <semantic-query query='SELECT ?place WHERE {
+                  <{{subject.value}}> <https://pharos.artresearch.net/resource/fr/Institution_from_Place> ?place.
+                }'
+                template="{{> locationTemplate}}"
+                >
+                <template id="locationTemplate">
+                  {{#each bindings}}
+                  <mp-label iri="{{place.value}}"></mp-label>
+                  {{/each}}
+                </template>
+              </semantic-query>
                 </div>
               </semantic-link>
         </template>
       </semantic-table>
-  </div>
-  </div>
+    </div>
 <style>
  .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
   background: #eaeaea;
@@ -71,10 +79,5 @@
   padding-left: 35px;
   border-radius: 25px;
   text-transform: none;
-}
-.matchNresults{
-  display: flex;
-  text-decoration: underline;
-
 }
 </style>

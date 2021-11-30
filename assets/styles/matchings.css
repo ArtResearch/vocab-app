@@ -70,13 +70,13 @@
   min-width: 80px;
 }
 
-.actions-generate{
+.actions-generate {
   gap: 25px;
   margin-top: 15px;
   margin-bottom: 40px;
   justify-content: flex-start !important;
 }
-#matchings .actions .generate{
+#matchings .actions .generate {
   background: white !important;
   color: black !important;
   box-shadow: 1px 1px 15px 5px #f0f0f0 !important;
@@ -85,12 +85,12 @@
   margin: 0 !important;
 }
 
-#matchings .actions .generate:active{
+#matchings .actions .generate:active {
   background: white !important;
   color: black !important;
 }
 
-#matchings .actions .generate::before{
+#matchings .actions .generate::before {
   margin-right: 5px;
 }
 
@@ -133,6 +133,24 @@
   border-radius: 4px !important;
   min-width: 80px !important;
 }
-#matchings .semantic-form button[name=submit]:focus, .semantic-form button[name=submit]:focus-within, .semantic-form button[name=submit]:hover {
+#matchings .semantic-form button[name="submit"]:focus,
+.semantic-form button[name="submit"]:focus-within,
+.semantic-form button[name="submit"]:hover {
   box-shadow: initial !important;
+}
+
+.matching-list .semantic-table-holder {
+  background: #ffffff90;
+  margin-bottom: 85px;
+  backdrop-filter: blur(2px);
+}
+
+.matching-list .semantic-table-holder th {
+  cursor: pointer;
+}
+
+.matchNresults {
+  display: flex;
+  text-decoration: underline;
+  gap: 5px;
 }
