@@ -17,6 +17,8 @@
   </div>
       <semantic-search-result-holder>
         <bs-tabs unmount-on-exit="true" id="search-results" animation="false">
+          <div>
+          <h1>Artwork Collection</h1>
           <bs-tab event-key="2" title="Grid">
             <semantic-search-result>
                 <semantic-table id="grid-result-2" options='{
@@ -32,6 +34,7 @@
                   <template id="tupleTemplate"> [[> :CardArtwork]] </template>
                 </semantic-table>
             </semantic-search-result>
+            </div>
       </semantic-search-result-holder>
 </semantic-search>
 </div>

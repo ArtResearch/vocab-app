@@ -1,6 +1,4 @@
-<div id="matchings">
-  <!-- PHAROS SECTION -->
-  <div>
+<div id="matchings" class="matching-list">
     <div class="jumbotron">
       <h1  class="display-13 jumbotronmargin displayFlex">
         <semantic-link 
@@ -27,48 +25,55 @@
     <div class="matchingContainer" >
       <semantic-table
       query='
-        SELECT ?subject WHERE {
-            ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-            ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+        SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
+          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+          OPTIONAL{
             ?subject skos:closeMatch ?match.
-            FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
-            FILTER NOT EXISTS { ?subject owl:sameAs ?a }
-        }LIMIT 1
-      '
-     tuple-template="{{>singleRepositoryTemplate}}"
+          }
+          FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+        }GROUP BY ?subject ORDER BY DESC(?count) LIMIT 1000'
+        options='{"showFilter":true, "resultsPerPage":10}'
+        number-of-displayed-rows="10"
+        column-configuration='[
+        {"variableName": "subject", "displayName": "Repository", 
+        "cellTemplate": "{{>singleRepositoryTemplate}}"},
+        {"variableName": "count", "displayName": "Number of matchings"}
+        ]'
       >
         <template id="singleRepositoryTemplate">
-          <div class="results-row FullWidth">
-          <semantic-link iri="Default:ConfirmRepository"   
-            urlqueryparam-partner='[[urlParam "partner"]]'
-            urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-            urlqueryparam-subject="{{subject.value}}">
-              <div class="matchNresults">
-         <mp-label iri="{{subject.value}}"> </mp-label>
-              <semantic-query
-              query='SELECT  (COUNT(?match) as ?count)  WHERE {
-         <{{subject.value}}> skos:closeMatch ?match.
-         OPTIONAL{
-          <{{subject.value}}> skos:exactMatch ?recommended.
-          }
-         OPTIONAL{
-            ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
-           BIND(str(?wikiImage) as ?image)
-         }
-          BIND(REPLACE(str(?match),"http:","https:") as ?matchUrl).
-         BIND(<{{subject.value}}> as ?currentCanditate)
-       }ORDER BY DESC(?recommended)'
-              template='{{> countTermplate }}'>
-               <template id='countTermplate'>
-                 {{#each bindings}}
-                  <div class="results-match"> ({{count.value}}) </div>
-                 {{/each}}
-               </template>
-            </semantic-query>
-          </div>
-            </semantic-link>
-         <hr>
-            </div>
+            <semantic-link iri="Default:ConfirmRepository"   
+              urlqueryparam-partner='[[urlParam "partner"]]'
+              urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+              urlqueryparam-subject="{{subject.value}}">
+                <div class="matchNresults">
+                <mp-label iri="{{subject.value}}"></mp-label>
+                <semantic-query query='SELECT ?place WHERE {
+                  <{{subject.value}}> <https://pharos.artresearch.net/resource/fr/Institution_from_Place> ?place.
+                }'
+                template="{{> locationTemplate}}"
+                >
+                <template id="locationTemplate">
+                  {{#each bindings}}
+                  <mp-label iri="{{place.value}}"></mp-label>
+                  {{/each}}
+                </template>
+              </semantic-query>
+                </div>
+              </semantic-link>
         </template>
       </semantic-table>
-</div>
+    </div>
+<style>
+ .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+  background: #eaeaea;
+  margin-left: 10px;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+</style>
