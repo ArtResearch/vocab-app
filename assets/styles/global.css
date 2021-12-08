@@ -38,7 +38,9 @@ iframe{
   border-radius: 5px;
   border: 1px solid #d8d8d8;
 }
-
+.CollectionWrapper{
+  padding-bottom: 50px;
+}
 #main-containers {
   display: block !important;
 }
