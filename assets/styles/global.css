@@ -20,6 +20,27 @@
 @import "./partner.css";
 @import "./matchings.css";
 
+
+#Cookiemessageid{
+    border-radius: 20px;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    width: 45vh;
+    text-align: left !important;
+    background-color: white;
+    margin-right: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.Cookiemessage {
+  border-radius: 0px 25px 0px 0px;
+  z-index: 11;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 0px;
+
+}
+
   .form-group{
     height: unset !important;
   }
