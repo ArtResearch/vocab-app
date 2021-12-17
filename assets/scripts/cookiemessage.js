@@ -121,10 +121,8 @@ function getCookie(name) {
 function cookieConsent() {
    
   if (getCookie("RSCookies")==null) {
-    console.log("ok");
       $(".CookieMessageContainer").show();
       $(".Cookiemessage").show();
-  
   }else{
      console.log(getCookie("RSCookies"));
     $(".CookieMessageContainer").hide();
@@ -140,8 +138,6 @@ function AcceptCookie() {
 
 
 $(document).ready(function () {
-      $(".CookieMessageContainer").hide();
-      $(".Cookiemessage").hide();
    cookieConsent();
 });
 
