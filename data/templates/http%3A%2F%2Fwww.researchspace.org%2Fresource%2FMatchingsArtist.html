@@ -27,15 +27,15 @@
       <semantic-query
       query='
       SELECT ?subject ?recommended WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist>.
-          GRAPH <https://pharos.artresearch.net/resource/pharos/matched/artists/graph> {
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://artresearch.net/resource/custom/fc/artist>.
+          GRAPH <https://artresearch.net/resource/pharos/matched/artists/graph> {
             ?subject skos:closeMatch ?match.
             OPTIONAL{
               ?subject skos:exactMatch ?recommended.
             }
           }
-          FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution> }
+          FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
         }LIMIT 1
       '
@@ -82,7 +82,7 @@
        query='SELECT ?match ?image ?currentCanditate WHERE {
          <{{bindings.0.subject.value}}> skos:closeMatch ?match.
          OPTIONAL{
-           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           ?match <https://artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
            BIND(str(?wikiImage) as ?image)
          }
          BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)

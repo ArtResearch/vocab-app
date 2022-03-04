@@ -27,8 +27,8 @@
       <semantic-table
       query='
         SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://artresearch.net/resource/custom/fc/photographer>.
           OPTIONAL{
             ?subject skos:closeMatch ?match.
           }

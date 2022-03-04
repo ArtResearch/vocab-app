@@ -29,8 +29,8 @@
       <semantic-query
       query='
         SELECT ?subject ?recommended WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/photographer>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://artresearch.net/resource/custom/fc/photographer>.
           OPTIONAL{
             ?subject skos:closeMatch ?recommended.
           }
@@ -55,7 +55,7 @@
         <div>
           <mp-field-visualization
           subject="{{bindings.0.subject.value}}"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE { { ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/person_info>.   }union{?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>.  }  OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE { { ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/person_info>.   }union{?field <http://www.researchspace.org/resource/system/fields/category>  <https://artresearch.net/resource/custom/fc/institution>.  }  OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
           template='{{>workInfo}}'
           >
         <template id="workInfo">
@@ -80,9 +80,9 @@
         }
          OPTIONAL{
           {
-            ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+            ?match <https://artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
           }UNION{
-            ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
+            ?match <https://artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
           }
           BIND(str(?wikiImage) as ?image)
         }

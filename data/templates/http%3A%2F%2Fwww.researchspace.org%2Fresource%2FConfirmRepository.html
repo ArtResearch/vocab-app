@@ -48,7 +48,7 @@
         <div>
           <mp-field-visualization
           subject="{{bindings.0.subject.value}}"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
           template='{{>workInfo}}'
           >
         <template id="workInfo">
@@ -69,7 +69,7 @@
               <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
             }
             OPTIONAL{
-              ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
+              ?match <https://artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
               BIND(str(?wikiImage) as ?image)
             }
             BIND(REPLACE(str(?match),"http:","https:") as ?matchUrl).

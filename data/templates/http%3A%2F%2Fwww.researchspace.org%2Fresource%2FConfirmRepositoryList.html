@@ -26,12 +26,12 @@
       <semantic-table
       query='
         SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://artresearch.net/resource/custom/fc/institution>.
           OPTIONAL{
             ?subject skos:closeMatch ?match.
           }
-          FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+          FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         }GROUP BY ?subject ORDER BY DESC(?count) LIMIT 1000'
         options='{"showFilter":true, "resultsPerPage":10}'
@@ -50,7 +50,7 @@
                 <div class="matchNresults">
                 <mp-label iri="{{subject.value}}"></mp-label>
                 <semantic-query query='SELECT ?place WHERE {
-                  <{{subject.value}}> <https://pharos.artresearch.net/resource/fr/Institution_from_Place> ?place.
+                  <{{subject.value}}> <https://artresearch.net/resource/fr/Institution_from_Place> ?place.
                 }'
                 template="{{> locationTemplate}}"
                 >

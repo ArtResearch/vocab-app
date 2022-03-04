@@ -27,13 +27,13 @@
       <semantic-query
       query='
         SELECT ?subject ?recommended WHERE {
-            ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-            ?subject a <https://pharos.artresearch.net/resource/custom/fc/institution>.
+            ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+            ?subject a <https://artresearch.net/resource/custom/fc/institution>.
             ?subject skos:closeMatch ?match.
             OPTIONAL{
               ?subject skos:exactMatch ?recommended.
             }
-            FILTER NOT EXISTS { ?subject a <https://pharos.artresearch.net/resource/custom/fc/artist> }
+            FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist> }
           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
         }LIMIT 1
       '
@@ -60,7 +60,7 @@
         <div>
           <mp-field-visualization
           subject="{{bindings.0.subject.value}}"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
           template='{{>workInfo}}'
           >
         <template id="workInfo">
@@ -80,7 +80,7 @@
           query='SELECT ?match ?currentCanditate ?image WHERE {
             <{{bindings.0.subject.value}}> skos:closeMatch ?match
             OPTIONAL{
-              ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
+              ?match <https://artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
               BIND(str(?wikiImage) as ?image)
             }
             BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
@@ -158,7 +158,7 @@
               <div class="matchingCardBody">
                 <mp-field-visualization
                 subject="{{match.value}}"
-                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
                 template='{{>workInfo}}'
                 >
               <template id="workInfo">

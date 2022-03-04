@@ -29,8 +29,8 @@
       <semantic-query
       query='
       SELECT ?subject WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://pharos.artresearch.net/resource/custom/fc/place>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject a <https://artresearch.net/resource/custom/fc/place>.
           ?subject skos:closeMatch ?match.
           ?subject rdfs:label ?label.
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
@@ -77,7 +77,7 @@
           <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
           }
          OPTIONAL{
-           ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
+           ?match <https://artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
            BIND(str(?wikiImage) as ?image)
          }
          BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
