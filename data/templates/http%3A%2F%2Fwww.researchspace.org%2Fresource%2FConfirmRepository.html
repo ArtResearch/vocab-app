@@ -48,7 +48,7 @@
         <div>
           <mp-field-visualization
           subject="{{bindings.0.subject.value}}"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  cfc:institution. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
           template='{{>workInfo}}'
           >
         <template id="workInfo">
@@ -84,16 +84,20 @@
 
           <div class="actions actions-generate">
             <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
-              <mp-overlay-dialog-trigger
-                >
+              <mp-overlay-dialog-trigger>
                 <button
-                id="12345"
-                name="submit"
-                class="btn generate"
-                title="If no match is found, this method can be used to create a unique Pharos entity"
-              ><i><img style="height: 15px;
-                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Create a new Pharos URI</button>
+                  id="12345"
+                  name="submit"
+                  class="btn generate"
+                  title="If no match is found, this method can be used to create a unique Pharos entity"
+                >
+                  <i>
+                    <img style="height: 15px;margin-right: 8px;" src="/assets/images/Pharos.ico"/>
+                  </i>
+                  Create a new Pharos URI
+                </button>
               </mp-overlay-dialog-trigger>
+
               <mp-overlay-dialog-content>
                 <h1>Are you sure you would like to generate a new Pharos URI?</h1>
                 <h2>If yes, click on the Generate button bellow.</h2>
@@ -120,7 +124,7 @@
                 >Generate</button>
               </semantic-form>
   
-                    </mp-overlay-dialog-content>
+              </mp-overlay-dialog-content>
             </mp-overlay-dialog>
             <mp-overlay-dialog title="‎‎Give URI" >
               <mp-overlay-dialog-trigger>
@@ -231,7 +235,7 @@
               <div class="matchingCardBody">
                 <mp-field-visualization
                 subject="{{match.value}}"
-                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
+                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  cfc:institution. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
                 template='{{>workInfo}}'
                 >
               <template id="workInfo">
