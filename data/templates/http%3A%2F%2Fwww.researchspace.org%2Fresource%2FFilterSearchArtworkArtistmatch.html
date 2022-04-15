@@ -7,11 +7,11 @@
         escape-lucene-syntax="false"
         default-query="
               SELECT DISTINCT ?subject WHERE {
-                       <[[artistIri]]> pharosfr:Artist_created_Work ?subject
+                       <[[artistIri]]> fr:Artist_created_Work ?subject
               }LIMIT 50"
         query='
                       SELECT DISTINCT ?subject WHERE {          
-                         <[[artistIri]]> pharosfr:Artist_created_Work ?subject
+                         <[[artistIri]]> fr:Artist_created_Work ?subject
                       } 
                     '
       ></semantic-search-query-keyword>
@@ -31,7 +31,7 @@
                   query="
                             SELECT DISTINCT ?subject
                             WHERE {
-                              ?subject pharosfr:Work_depicted_by_Photo ?photo.
+                              ?subject fr:Work_depicted_by_Photo ?photo.
                             }LIMIT 50
                           "
                   tuple-template="{{>tupleTemplate}}"
