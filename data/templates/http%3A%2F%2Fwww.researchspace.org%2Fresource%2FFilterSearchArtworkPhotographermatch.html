@@ -8,10 +8,10 @@
         escape-lucene-syntax="false"
         default-query="
                 SELECT DISTINCT ?subject WHERE {
-                  <[[photographerIri]]> fr:Photographer_created_Photo ?subject.
+                  <[[photographerIri]]> fr:Photographer_created_Photo|cfr:Photographer_created_Photo ?subject.
                 }LIMIT 50"
     query='        SELECT DISTINCT ?subject WHERE {          
-                      <[[photographerIri]]> fr:Photographer_created_Photo ?subject.
+                      <[[photographerIri]]> fr:Photographer_created_Photo|cfr:Photographer_created_Photo ?subject.
                     } 
                       '
       ></semantic-search-query-keyword>
