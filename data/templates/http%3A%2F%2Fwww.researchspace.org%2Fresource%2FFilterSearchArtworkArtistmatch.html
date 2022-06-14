@@ -30,9 +30,12 @@
                         }'
                   number-of-displayed-rows="3"
                   query="
-                            SELECT DISTINCT ?subject
+                            SELECT DISTINCT ?subject ?og
                             WHERE {
-                              ?subject fr:Work_depicted_by_Photo ?photo.
+                              OPTIONAL{
+                                ?subject fr:Work_depicted_by_Photo ?photo.
+                              }
+                              ?subject owl:sameAs ?og
                             }LIMIT 50
                           "
                   tuple-template="{{>tupleTemplate}}"
