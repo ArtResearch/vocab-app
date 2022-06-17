@@ -28,6 +28,10 @@
       <semantic-query
       query='
         SELECT ?subject WHERE {
+           OPTIONAL{
+            ?subject skos:closeMatch ?match.
+          }
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
             BIND(<[[urlParam "subject"]]> as ?subject)
         }LIMIT 1
       '
