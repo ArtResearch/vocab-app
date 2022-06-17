@@ -97,8 +97,7 @@
           <small>or generate/submit a uri</small>
         <div class="actions actions-generate">
           <mp-overlay-dialog title="‎‎Confirm Pharos URI generation" >
-            <mp-overlay-dialog-trigger
-              >
+            <mp-overlay-dialog-trigger>
   
               <button
               id="12345"
@@ -197,8 +196,7 @@
                 </div>
                 <div class="actions">     
                   <mp-overlay-dialog title="‎‎Confirm matching" >
-                    <mp-overlay-dialog-trigger
-                      >
+                    <mp-overlay-dialog-trigger>
           
                       <button
                       id="1234"
@@ -210,11 +208,12 @@
                     <mp-overlay-dialog-content>
                       <h1>Are you sure you want to create this matching?</h1>
                       <h2>If yes, click on "Confirm" button bellow.</h2>
+                      {{currentCanditate.value}}
+                      {{match.value}}
                       <semantic-form
                       new-subject-template="{{currentCanditate.value}}"
                       browser-persistance="true"
                       persistence="ldp"
-                       subject="Default:ConfirmPhotographerList"
                       urlqueryparam-partner='[[urlParam "partner"]]'
                       urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                       browser-persistance="true"
