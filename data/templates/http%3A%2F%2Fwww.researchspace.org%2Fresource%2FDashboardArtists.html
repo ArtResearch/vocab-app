@@ -1,6 +1,10 @@
 <div class="row" style="margin-top: 40px;">
+ 
   <bs-col sm="1"></bs-col>
   <bs-col sm="10">
+     <h1>
+    Reconcield Artists
+  </h1>
     <semantic-table id='resources-results'
       number-of-displayed-rows=10
       query=' PREFIX ldp: <http://www.w3.org/ns/ldp#>
@@ -21,7 +25,7 @@
             ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
           }
             ?value a fc:artist.
-      }GROUP BY ?subject LIMIT 1000'
+      }GROUP BY ?subject ORDER BY DESC(?datetime) LIMIT 1000'
       number-of-displayed-rows=10
       no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
         column-configuration=
@@ -49,7 +53,7 @@
         </template>
         <template id="Actions">
             <mp-ldp-remove-from-container-action action="DELETE" post-action='reload' iri="{{container.value}}" container="http://www.researchspace.org/resource/system/formContainer">
-              <button title='This action will remove the item from your matched actors list. It will be then available under actors matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+              <button title='This action will remove the item from your matched artists list. It will be then available under artists matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
             </mp-ldp-remove-from-container-action>
         </template>
     </semantic-table>
