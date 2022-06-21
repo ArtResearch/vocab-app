@@ -21,6 +21,10 @@
 @import "./matchings.css";
 
 
+#basic-nav-dropdown{
+  padding: 15px !important;
+}
+
 #Cookiemessageid{
     border-radius: 20px;
     box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
