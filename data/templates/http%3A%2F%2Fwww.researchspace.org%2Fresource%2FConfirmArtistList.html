@@ -35,6 +35,7 @@
           }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer> }
+          FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         } GROUP BY ?subject ORDER BY DESC(?count) LIMIT 1000'
         options='{"showFilter":true, "resultsPerPage":10}'
         number-of-displayed-rows="10"
