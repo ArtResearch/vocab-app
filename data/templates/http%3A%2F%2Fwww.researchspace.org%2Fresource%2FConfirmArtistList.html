@@ -30,11 +30,11 @@
         SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a  <https://artresearch.net/resource/custom/fc/artist>.
+          ?subject fr:Artist_created_Work ?object.
           OPTIONAL{
             ?subject skos:closeMatch ?match.
           }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
-          FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
         } GROUP BY ?subject ORDER BY DESC(?count) LIMIT 1000'
         options='{"showFilter":true, "resultsPerPage":10}'
