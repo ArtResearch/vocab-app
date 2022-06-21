@@ -5,58 +5,51 @@
      <h1>
     Reconcield Photographers
   </h1>
-    <semantic-table id='resources-results'
-      number-of-displayed-rows=10
-      query=' PREFIX ldp: <http://www.w3.org/ns/ldp#>
-      SELECT  ?subject 
-              (SAMPLE(?provider) as ?provider)
-              (SAMPLE(?providerLabel) as ?providerLabel) 
-              (SAMPLE(?value) as ?value) 
-              (SAMPLE(?matchId) as ?matchId) 
-              (SAMPLE(?attribution) as ?attribution) 
-              (SAMPLE(?datetime) as ?datetime) 
-              (SAMPLE(?formContainer) as ?formContainer)
-              (SAMPLE(?container) as ?container) WHERE {
-        ?subject <https://artresearch.net/custom/has_provider> ?provider.                
-          GRAPH ?g {
-            ?formContainer ldp:contains ?container .
-            ?container prov:wasAttributedTo ?attribution;
-              prov:generatedAtTime ?datetime.
-            ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
-          }
-            ?value a fc:photographer.
-      }GROUP BY ?subject ORDER BY DESC(?datetime) LIMIT 1000'
-      number-of-displayed-rows=10
-      no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
-        column-configuration=
-          '[
-            {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "{{>pharos_photographer}}"},
-            {"variableName":"value","displayName":"ULAN", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
-            {"variableName":"attribution","displayName":"Attribution", "cellTemplate": "<mp-label iri=\"{{attribution.value}}\"></mp-label>"},
-            {"variableName":"datetime","displayName":"Modified", "cellTemplate": "{{datetime.value}}"},
-            {"variableName":"actions","displayName":"Actions", "cellTemplate": "{{>Actions}}"}
-          ]'
-      >
-
-        <template id="pharos_photographer">
-          <div>
-            <mp-label iri="{{provider.value}}"></mp-label>: 
-            <a href="{{subject.value}}"><mp-label iri="{{subject.value}}"></mp-label></a>
-          </div>
-        </template>
-        <template id="suggest_match">
-          {{#if value.value}}
-            <a href="{{value.value}}"><mp-label iri="{{value.value}}"></mp-label></a>
-          {{else}}
-            no suggestion
-          {{/if}}
-        </template>
-        <template id="Actions">
-            <mp-ldp-remove-from-container-action action="DELETE" post-action='reload' iri="{{container.value}}" container="http://www.researchspace.org/resource/system/formContainer">
-              <button title='This action will remove the item from your matched photographers list. It will be then available under photographers matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
-            </mp-ldp-remove-from-container-action>
-        </template>
-    </semantic-table>
+ <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="itatti">
+  <div>
+    <bs-nav bs-style='tabs'>
+      <bs-nav-item event-key='itatti'><div style="display: flex;">Itatti</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='frick'><div style="display: flex;">Frick</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='hertz'><div style="display: flex;">Hertziana</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='zeri'><div style="display: flex;">Zeri</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='marburg'><div style="display: flex;">Marburg</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='khi'><div style="display: flex;">KHI</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='pmc'><div style="display: flex;">PMC</div>
+      </bs-nav-item>
+    </bs-nav>
+    <bs-tab-content unmount-on-exit=true>
+      <div>
+        <bs-tab-pane event-key='itatti'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/itatti/source/ITatti']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='frick'>
+          [[> Dashboard photographers=true  provider='https://artresearch.net/resource/frick/source/Frick']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='hertz'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/hertziana/source/Hertziana']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='zeri'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/zeri/source/Zeri']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='marburg'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/marburg/source/Marburg']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='khi'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/khi/source/KHI']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='pmc'>
+          [[> Dashboard photographers=true provider='https://artresearch.net/resource/pmc/source/PMC']]
+        </bs-tab-pane>
+      </div>
+    </bs-tab-content>
+      </div>
+ </bs-tab-container>
   </bs-col>
   <bs-col sm="1"></bs-col>
 </div>
