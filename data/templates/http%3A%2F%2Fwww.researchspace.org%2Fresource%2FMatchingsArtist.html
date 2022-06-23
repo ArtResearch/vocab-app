@@ -100,7 +100,11 @@
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
                     </h2>
-                    <small><a target="_viewMatchArtist" href="{{match.value}}">View at Getty</a></small>
+                    [[#if (ask "ASK { FILTER CONTAINS('{{match.value}}','wikidata') }")]]
+                          <small><a target="_viewMatchArtist" href="{{match.value}}">View at Wikidata</a></small>
+                      [[else]]
+                          <small><a target="_viewMatchArtist" href="{{match.value}}">View at Getty</a></small>
+                    [[/if]]
                 </div>
                 <div class="actions">
                   <semantic-form

@@ -32,7 +32,7 @@
           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a <https://artresearch.net/resource/custom/fc/artist>.
           OPTIONAL{
-            ?subject skos:closeMatch ?match.
+            ?subject skos:closeMatch ?recommended.
           }
           ?subject rdfs:label ?label.
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
@@ -188,7 +188,11 @@
                     <mp-overlay-dialog title="‎‎{{match.value}} " type="lightbox">
                       <mp-overlay-dialog-trigger
                         >
-                    <small class="clickable">View at Getty</small>
+                         [[#if (ask "ASK { FILTER CONTAINS('{{match.value}}','wikidata') }")]]
+                            <small class="clickable">View at Wikidata</small>
+                         [[else]]
+                            <small class="clickable">View at Getty</small>
+                        [[/if]]
                       </mp-overlay-dialog-trigger>
                       <mp-overlay-dialog-content>
                         <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>

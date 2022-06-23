@@ -187,7 +187,11 @@
                     <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                       <mp-overlay-dialog-trigger
                         >
-                    <small class="clickable">View at WikiData</small>
+                          [[#if (ask "ASK { FILTER CONTAINS('{{match.value}}','wikidata') }")]]
+                            <small class="clickable">View at Wikidata</small>
+                          [[else]]
+                            <small class="clickable">View at Getty</small>
+                          [[/if]]
                       </mp-overlay-dialog-trigger>
                       <mp-overlay-dialog-content>
                         <iframe src="{{matchUrl.value}}"></iframe>
