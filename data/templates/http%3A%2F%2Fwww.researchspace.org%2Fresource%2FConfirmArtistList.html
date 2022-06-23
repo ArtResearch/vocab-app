@@ -32,6 +32,7 @@
           ?subject a  <https://artresearch.net/resource/custom/fc/artist>.
           ?subject skos:closeMatch ?match.
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+          FILTER NOT EXISTS {?subject a  <https://artresearch.net/resource/custom/fc/photographer>}
         } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
         options='{"showFilter":true, "resultsPerPage":10}'
         number-of-displayed-rows="10"
