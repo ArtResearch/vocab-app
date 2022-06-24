@@ -28,7 +28,7 @@
         SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           ?subject a <https://artresearch.net/resource/custom/fc/institution>.
-           OPITONAL{ ?subject skos:closeMatch ?match. }
+           OPTIONAL{ ?subject skos:closeMatch ?match. }
              FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
               FILTER NOT EXISTS {
                       ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
