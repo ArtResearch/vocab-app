@@ -38,6 +38,7 @@
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
+          FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
           BIND(<[[urlParam "subject"]]> as ?subject)
         }ORDER BY ASC (?label) LIMIT 1
       '

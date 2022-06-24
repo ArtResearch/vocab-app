@@ -36,6 +36,7 @@
                                     ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                     FILTER CONTAINS(STR(?ulan),"ulan") 
            }
+           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
           FILTER NOT EXISTS {?subject a  <https://artresearch.net/resource/custom/fc/photographer>}
         } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
         options='{"showFilter":true, "resultsPerPage":10}'

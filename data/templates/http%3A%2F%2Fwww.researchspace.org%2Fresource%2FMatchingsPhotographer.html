@@ -33,7 +33,14 @@
           OPTIONAL{
             ?subject skos:exactMatch ?recommended.
           }
-          FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+          FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+          FILTER NOT EXISTS {
+                  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                  FILTER CONTAINS(STR(?ulan),"ulan") 
+                  FILTER CONTAINS(STR(?ulan),"wikidata") 
+
+           }
+           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
         }LIMIT 1
       '
       template="{{>singlePhotographerTemplate}}"

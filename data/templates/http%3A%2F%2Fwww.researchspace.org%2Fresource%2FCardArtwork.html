@@ -23,11 +23,13 @@
             template="{{> imageThumbnail}}"
           >
             <template id="imageThumbnail">
+              <a href="https://artresearch.net/resource/?uri={{subject.value}}">
               <img
                 alt="   "
                 class="thumbnailImage"
                 src="{{bindings.0.imgUrl.value}}"
               />
+              </a>
             </template>
           </semantic-query>
         </bs-col>
@@ -35,7 +37,11 @@
           <div data-flex-layout="row md-column center-stretch">
             <bs-row class="cardInfoFields">
               <h4 class="smallCardTitle">
-                <semantic-link iri="{{subject.value}}"></semantic-link>
+                [[#if artwork]]
+                  <mp-label iri="{{og.value}}"></mp-label>
+                [[else]]
+                  <mp-label iri="{{subject.value}}"></mp-label>
+                [[/if]]
               </h4>
             </bs-row>
           </div>
