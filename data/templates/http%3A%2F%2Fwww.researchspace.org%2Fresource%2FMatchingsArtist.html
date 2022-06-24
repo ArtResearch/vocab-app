@@ -101,9 +101,9 @@
                     <mp-label iri="{{match.value}}" ></mp-label>
                     </h2>
                     [[#if (ask "ASK { FILTER CONTAINS('{{match.value}}','wikidata') }")]]
-                          <small><a target="_viewMatchArtist" href="{{match.value}}">View at Wikidata</a></small>
+                          <small><a href="{{match.value}}">View at Wikidata</a></small>
                       [[else]]
-                          <small><a target="_viewMatchArtist" href="{{match.value}}">View at Getty</a></small>
+                          <small><a href="{{match.value}}">View at Getty</a></small>
                     [[/if]]
                 </div>
                 <div class="actions">
