@@ -23,58 +23,101 @@
       />
     </div>
     <div class="matchingContainer" >
-      <semantic-table
-      query='
-        SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
-          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject a <https://artresearch.net/resource/custom/fc/institution>.
-            ?subject skos:closeMatch ?match.
-             FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
-              FILTER NOT EXISTS {
-                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                      FILTER CONTAINS(STR(?ulan),"wikidata") 
-
-              }
-                            FILTER NOT EXISTS {
-                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                      FILTER CONTAINS(STR(?ulan),"ulan") 
-
-              }
-           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
-             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
-             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
-        }GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
-        options='{"showFilter":true, "resultsPerPage":10}'
-        number-of-displayed-rows="10"
-        no-result-template="<h1>No results</h1>"
-        column-configuration='[
-        {"variableName": "subject", "displayName": "Repository", 
-        "cellTemplate": "{{>singleRepositoryTemplate}}"},
-        {"variableName": "count", "displayName": "Number of matchings"}
-        ]'
-      >
-        <template id="singleRepositoryTemplate">
-            <semantic-link iri="Default:ConfirmRepository"   
-              urlqueryparam-partner='[[urlParam "partner"]]'
-              urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
-              urlqueryparam-subject="{{subject.value}}">
-                <div class="matchNresults">
-                <mp-label iri="{{subject.value}}"></mp-label>
-                <semantic-query query='SELECT ?place WHERE {
-                  <{{subject.value}}> <https://artresearch.net/resource/fr/Institution_from_Place> ?place.
+            <semantic-query
+                query='SELECT DISTINCT ?prov WHERE {
+                  BIND(<[[urlParam "partner"]]> as ?prov)
                 }'
-                template="{{> locationTemplate}}"
-                >
-                <template id="locationTemplate">
-                  {{#each bindings}}
-                  <mp-label iri="{{place.value}}"></mp-label>
-                  {{/each}}
-                </template>
-              </semantic-query>
-                </div>
-              </semantic-link>
+                template="{{>Mytable}}">
+                <template id="Mytable">
+                  {{#ifCond bindings.0.prov.value "===" "https://artresearch.net/resource/pmc/source/PMC"}}
+                    <semantic-table
+                    query='
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
+                      ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                      ?subject a <https://artresearch.net/resource/custom/fc/institution>.
+                      OPTIONAL{
+                        ?subject skos:closeMatch ?match.
+                      }
+                        FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+                          FILTER NOT EXISTS {
+                                  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                  FILTER CONTAINS(STR(?ulan),"wikidata") 
+
+                          }
+                                        FILTER NOT EXISTS {
+                                  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                  FILTER CONTAINS(STR(?ulan),"ulan") 
+
+                          }
+                      FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                        FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
+                        FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
+                      } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
+                      options='{"showFilter":true, "resultsPerPage":10}'
+                      number-of-displayed-rows="10"
+                      no-result-template="<h1>No results</h1>"
+                      column-configuration='[
+                      {"variableName": "subject", "displayName": "Artist", 
+                      "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "count", "displayName": "Number of matchings"}
+                      ]'
+                    >
+                      <template id="singleArtistTemplate">
+                        <semantic-link iri="Default:ConfirmArtist"   
+                        urlqueryparam-partner='[[urlParam "partner"]]'
+                        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                        urlqueryparam-subject="{{subject.value}}">
+                        <div class="matchNresults">
+                            <mp-label iri="{{subject.value}}"> </mp-label>
+                        </div>
+                      </semantic-link>
+                      </template>
+                    </semantic-table>
+                    {{else}}
+                    <semantic-table
+                    query='
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
+                          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                          ?subject a <https://artresearch.net/resource/custom/fc/institution>.
+                            ?subject skos:closeMatch ?match.
+                            FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+                              FILTER NOT EXISTS {
+                                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                      FILTER CONTAINS(STR(?ulan),"wikidata") 
+
+                              }
+                                            FILTER NOT EXISTS {
+                                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                      FILTER CONTAINS(STR(?ulan),"ulan") 
+
+                              }
+                          FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                            FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
+                            FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
+                      } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
+                      options='{"showFilter":true, "resultsPerPage":10}'
+                      number-of-displayed-rows="10"
+                      no-result-template="<h1>No results</h1>"
+                      column-configuration='[
+                      {"variableName": "subject", "displayName": "Artist", 
+                      "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "count", "displayName": "Number of matchings"}
+                      ]'
+                    >
+                      <template id="singleArtistTemplate">
+                        <semantic-link iri="Default:ConfirmArtist"   
+                        urlqueryparam-partner='[[urlParam "partner"]]'
+                        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                        urlqueryparam-subject="{{subject.value}}">
+                        <div class="matchNresults">
+                            <mp-label iri="{{subject.value}}"> </mp-label>
+                        </div>
+                      </semantic-link>
+                      </template>
+                    </semantic-table>
+                    {{/ifCond}}
         </template>
-      </semantic-table>
+            </semantic-query>
     </div>
 <style>
  .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
