@@ -44,12 +44,12 @@
                                   FILTER CONTAINS(STR(?ulan),"wikidata") 
 
                           }
-                                        FILTER NOT EXISTS {
+                          FILTER NOT EXISTS {
                                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                   FILTER CONTAINS(STR(?ulan),"ulan") 
 
                           }
-                      FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                        FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                         FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
                         FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
                       } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
@@ -63,7 +63,7 @@
                       ]'
                     >
                       <template id="singleArtistTemplate">
-                        <semantic-link iri="Default:ConfirmArtist"   
+                        <semantic-link iri="Default:ConfirmRepository"   
                         urlqueryparam-partner='[[urlParam "partner"]]'
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
@@ -105,7 +105,7 @@
                       ]'
                     >
                       <template id="singleArtistTemplate">
-                        <semantic-link iri="Default:ConfirmArtist"   
+                        <semantic-link iri="Default:ConfirmRepository"   
                         urlqueryparam-partner='[[urlParam "partner"]]'
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
