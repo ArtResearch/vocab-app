@@ -76,32 +76,36 @@
                     {{else}}
                     <semantic-table
                     query='
-                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (COUNT(?match2) as ?count2) WHERE {
                           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                           ?subject a <https://artresearch.net/resource/custom/fc/institution>.
-                            ?subject skos:closeMatch ?match.
+                            {
+                              ?subject skos:closeMatch ?match.
+                            }UNION{
+                            ?subject skos:closeMatch2 ?match2.
+                          }
                             FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
                               FILTER NOT EXISTS {
                                       ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                       FILTER CONTAINS(STR(?ulan),"wikidata") 
 
                               }
-                                            FILTER NOT EXISTS {
+                              FILTER NOT EXISTS {
                                       ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                       FILTER CONTAINS(STR(?ulan),"ulan") 
-
                               }
                           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
-                      } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
+                      } GROUP BY ?subject ORDER BY DESC(?count2) ASC (?count) LIMIT 1000'
                       options='{"showFilter":true, "resultsPerPage":10}'
                       number-of-displayed-rows="10"
                       no-result-template="<h1>No results</h1>"
                       column-configuration='[
                       {"variableName": "subject", "displayName": "Artist", 
                       "cellTemplate": "{{>singleArtistTemplate}}"},
-                      {"variableName": "count", "displayName": "Number of matchings"}
+                      {"variableName": "count", "displayName": "Number of matchings"},
+                      {"variableName": "count2", "displayName": "Number of matchings (including the location)"}
                       ]'
                     >
                       <template id="singleArtistTemplate">
