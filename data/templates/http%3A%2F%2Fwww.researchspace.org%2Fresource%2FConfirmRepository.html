@@ -383,6 +383,7 @@
             OPTIONAL{
               <{{bindings.0.subject.value}}> skos:exactMatch ?recommended.
             }
+            FILTER NOT EXISTS {<{{bindings.0.subject.value}}> skos:closeMatch2 ?match.}
             OPTIONAL{
               ?match <https://artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
               BIND(str(?wikiImage) as ?image)
