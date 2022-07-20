@@ -177,7 +177,9 @@
                   new-subject-template="{{bindings.0.currentCanditate.value}}"
                   browser-persistance="true"
                   persistence="ldp"
-                  post-action="reload"
+                  urlqueryparam-partner='[[urlParam "partner"]]'
+                  urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                  iri="Default:ConfirmArtistList"
                   form-id="uriSubmit"
                   fields='[[  fieldDefinitions
                               submit_uri="http://www.researchspace.org/fieldDefinition/Give_Institution_URI"
