@@ -134,6 +134,42 @@
 
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
+          <mp-overlay-dialog title="Create Pharos Authority" >
+            <mp-overlay-dialog-trigger>
+  
+              <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to merge a Pharos entity with another Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/Pharos.ico"/></i>Merge with a PHAROS URI</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure you would like to merge a Pharos URI?</h1>
+              <h2>If yes, click on the Merge button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            submit_uri="https://vision.artresearch.net/fieldDefinitionContainer/PHAROS_artist_URI"
+                        ]]'
+              >
+               <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                   
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn action approve"
+                  title="Click to merge new Pharos URI"
+                >Generate</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
           <mp-overlay-dialog title="Give URI" >
             <mp-overlay-dialog-trigger>
               <button
