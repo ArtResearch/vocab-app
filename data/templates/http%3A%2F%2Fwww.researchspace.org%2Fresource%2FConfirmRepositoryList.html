@@ -32,7 +32,7 @@
                   {{#ifCond bindings.0.prov.value "===" "https://artresearch.net/resource/pmc/source/PMC"}}
                     <semantic-table
                     query='
-                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) WHERE {
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (SAMPLE(?loc) as ?location ) WHERE {
                       ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                       ?subject a <https://artresearch.net/resource/custom/fc/institution>.
                       OPTIONAL{
@@ -48,6 +48,9 @@
                                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                   FILTER CONTAINS(STR(?ulan),"ulan") 
 
+                          }
+                          OPTIONAL {
+                            ?subject crm:P74_has_current_or_former_residence ?loc.
                           }
                         FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                         FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
@@ -68,7 +71,9 @@
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
                         <div class="matchNresults">
-                            <mp-label iri="{{subject.value}}"> </mp-label>
+                            <mp-label iri="{{subject.value}}"> </mp-label> /
+                            <mp-label iri="{{location.value}}"></mp-label>
+                            
                         </div>
                       </semantic-link>
                       </template>
@@ -76,7 +81,7 @@
                     {{else}}
                     <semantic-table
                     query='
-                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (COUNT(?match2) as ?count2) WHERE {
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (COUNT(?match2) as ?count2) (SAMPLE(?loc) as ?location ) WHERE {
                           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                           ?subject a <https://artresearch.net/resource/custom/fc/institution>.
                             {
@@ -94,6 +99,9 @@
                                       ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                       FILTER CONTAINS(STR(?ulan),"ulan") 
                               }
+                               OPTIONAL {
+                            ?subject crm:P74_has_current_or_former_residence ?loc.
+                          }
                           FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
@@ -114,7 +122,8 @@
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
                         <div class="matchNresults">
-                            <mp-label iri="{{subject.value}}"> </mp-label>
+                            <mp-label iri="{{subject.value}}"> </mp-label> /
+                            <mp-label iri="{{location.value}}"></mp-label>
                         </div>
                       </semantic-link>
                       </template>
