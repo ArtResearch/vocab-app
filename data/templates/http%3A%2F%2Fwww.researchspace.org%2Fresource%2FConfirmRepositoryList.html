@@ -32,7 +32,7 @@
                   {{#ifCond bindings.0.prov.value "===" "https://artresearch.net/resource/pmc/source/PMC"}}
                     <semantic-table
                     query='
-                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (SAMPLE(?loc) as ?location ) WHERE {
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) ?location WHERE {
                       ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                       ?subject a <https://artresearch.net/resource/custom/fc/institution>.
                       OPTIONAL{
@@ -49,19 +49,21 @@
                                   FILTER CONTAINS(STR(?ulan),"ulan") 
 
                           }
-                          OPTIONAL {
+                        
                             ?subject crm:P74_has_current_or_former_residence ?loc.
-                          }
+                          
+                           BIND(IF(BOUND(?loc), ?loc, "Unknown") as ?location)
                         FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                         FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
                         FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
-                      } GROUP BY ?subject ORDER BY ASC(?count) LIMIT 1000'
+                      } GROUP BY ?subject ?location ORDER BY ASC(?count) LIMIT 1000'
                       options='{"showFilter":true, "resultsPerPage":10}'
                       number-of-displayed-rows="10"
                       no-result-template="<h1>No results</h1>"
                       column-configuration='[
                       {"variableName": "subject", "displayName": "Artist", 
                       "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "location", "displayName": "Location","cellTemplate": "{{>loc}}"},
                       {"variableName": "count", "displayName": "Number of matchings"}
                       ]'
                     >
@@ -71,17 +73,30 @@
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
                         <div class="matchNresults">
-                            <mp-label iri="{{subject.value}}"> </mp-label> /
-                            <mp-label iri="{{location.value}}"></mp-label>
+                            <mp-label iri="{{subject.value}}"> </mp-label>
                             
                         </div>
                       </semantic-link>
+                      </template>
+                      <template id="loc">
+                        <semantic-query
+                            query="SELECT * WHERE{
+                            <{{subject.value}}> crm:P74_has_current_or_former_residence/rdfs:label ?loc_label
+                            }"
+                            template="{{>location}}">
+                            <template id="location">
+                              {{#each bindings}}
+                               {{loc_label.value}} 
+                              {{/each}}
+                            </template>
+                        </semantic-query>
+
                       </template>
                     </semantic-table>
                     {{else}}
                     <semantic-table
                     query='
-                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (COUNT(?match2) as ?count2) (SAMPLE(?loc) as ?location ) WHERE {
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count) (COUNT(?match2) as ?count2)  ?location WHERE {
                           ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                           ?subject a <https://artresearch.net/resource/custom/fc/institution>.
                             {
@@ -99,19 +114,21 @@
                                       ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                       FILTER CONTAINS(STR(?ulan),"ulan") 
                               }
-                               OPTIONAL {
-                            ?subject crm:P74_has_current_or_former_residence ?loc.
-                          }
-                          FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                          
+                            ?subject crm:P74_has_current_or_former_residence/rdfs:label ?loc_label
+                          
+                            BIND(IF(BOUND(?loc_label), ?loc_label, "Unknown") as ?location)
+                            FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
                             FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
-                      } GROUP BY ?subject ORDER BY DESC(?count2) ASC (?count) LIMIT 1000'
+                      } GROUP BY ?subject ?location ORDER BY DESC(?count2) ASC (?count) LIMIT 1000'
                       options='{"showFilter":true, "resultsPerPage":10}'
                       number-of-displayed-rows="10"
                       no-result-template="<h1>No results</h1>"
                       column-configuration='[
                       {"variableName": "subject", "displayName": "Artist", 
                       "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "location", "displayName": "Location","cellTemplate": "{{>loc}}"},
                       {"variableName": "count", "displayName": "Number of matchings"},
                       {"variableName": "count2", "displayName": "Number of matchings (including the location)"}
                       ]'
@@ -122,10 +139,23 @@
                         urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
                         urlqueryparam-subject="{{subject.value}}">
                         <div class="matchNresults">
-                            <mp-label iri="{{subject.value}}"> </mp-label> /
-                            <mp-label iri="{{location.value}}"></mp-label>
+                            <mp-label iri="{{subject.value}}"> </mp-label>
                         </div>
                       </semantic-link>
+                      </template>
+                      <template id="loc">
+                        <semantic-query
+                            query="SELECT * WHERE{
+                            <{{subject.value}}> crm:P74_has_current_or_former_residence/rdfs:label ?loc_label
+                            }"
+                            template="{{>location}}">
+                            <template id="location">
+                              {{#each bindings}}
+                               {{loc_label.value}} 
+                              {{/each}}
+                            </template>
+                        </semantic-query>
+
                       </template>
                     </semantic-table>
                     {{/ifCond}}
