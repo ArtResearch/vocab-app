@@ -42,6 +42,9 @@
                   FILTER CONTAINS(STR(?ulan),"wikidata") 
                 
            }
+            FILTER NOT EXISTS {
+            ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+           }
            FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
             BIND(<[[urlParam "subject"]]> as ?subject)
         }LIMIT 1
@@ -62,6 +65,9 @@
                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                   FILTER CONTAINS(STR(?ulan),"wikidata") 
                 
+           }
+           FILTER NOT EXISTS {
+            ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
            }
            FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
             BIND(<[[urlParam "subject"]]> as ?subject)

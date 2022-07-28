@@ -35,6 +35,9 @@
             ?subject skos:closeMatch ?recommended.
           }
           ?subject rdfs:label ?label.
+           FILTER NOT EXISTS {
+            ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+           }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/institution> }
           FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer> }
           FILTER NOT EXISTS { ?subject owl:sameAs ?a }
