@@ -122,11 +122,13 @@
                                   id="semantic-search-result-table"
                                   query='SELECT DISTINCT 
                                 ?subject
-                                ?type ?prov
+                                (SAMPLE (?type) as ?type)
+                                (SAMPLE (?prov) as ?prov)
+                                 
                                 WHERE {
                                 ?subject  a ?type .
                                 ?subject <https://artresearch.net/custom/has_provider> ?prov
-                                }LIMIT 10000'
+                                }GROUP BY ?subject LIMIT 10000'
                                   no-result-template='[[> CardNoResult ]]'
                                   column-configuration='[
                                 {"variableName": "label",  "showFilter": true,"filterType": "multiselect","displayName": "Title","cellTemplate": "{{>titleTemplate}}"},
