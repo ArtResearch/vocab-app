@@ -45,8 +45,8 @@
 
                           }
                            FILTER NOT EXISTS {
-            ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
-           }
+                              ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+                            }
                           FILTER NOT EXISTS {
                                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
                                   FILTER CONTAINS(STR(?ulan),"ulan") 
