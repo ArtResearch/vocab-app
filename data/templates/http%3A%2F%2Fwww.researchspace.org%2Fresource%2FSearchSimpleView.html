@@ -1,0 +1,200 @@
+
+<semantic-context repository='default'>
+  <semantic-query query='
+  SELECT ?token WHERE{
+    BIND(REPLACE("[[urlParam "keyword"]]","(?<!^)(?<!\\s)\\s+(?!\\s+)(?!$)", " AND ") as ?token)
+  }
+  '
+  no-result-template="{{>addAndTemplate}}"
+  template="{{>addAndTemplate}}"
+  >
+  <template id="addAndTemplate">
+  
+  <div>
+    <mp-event-target-template-render
+    id="event-target-tables-ULAN"
+    template="{{> tableEventTargetTemplate}}"
+  >
+    <template id="tableEventTargetTemplate">
+    <semantic-search-query-keyword
+  placeholder='You searched for [[urlParam "keyword"]], but you can search for anything!'
+  domain="<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>"
+  default-query='
+  PREFIX bds: <http://www.bigdata.com/rdf/search#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+  PREFIX hint: <http://www.bigdata.com/queryHints#>
+  SELECT DISTINCT ?subject   WHERE {
+    ?subject rdfs:label ?extra_label.
+    ?extra_label bds:search "[[urlParam "keyword"]]";
+          bds:minRelevance "0.2"^^xsd:double ;
+          bds:relevance ?score ;
+          bds:matchAllTerms "true" .
+           [[#if repositories]]
+           ?subject a cfc:institution.
+           [[/if]]
+           [[#if artists]]
+           ?subject a cfc:artist.
+           [[/if]]
+           [[#if photographers]]
+           ?subject a cfc:photographer.
+           [[/if]]
+           FILTER EXISTS {  ?subject <https://artresearch.net/custom/has_provider> ?prov}
+            FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+            FILTER NOT EXISTS {
+                    ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                    FILTER CONTAINS(STR(?ulan),"wikidata") 
+            }
+            FILTER NOT EXISTS {
+              ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+            }
+            FILTER NOT EXISTS {
+                    ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                    FILTER CONTAINS(STR(?ulan),"ulan") 
+            }
+            FILTER NOT EXISTS {
+                    ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                    FILTER CONTAINS(STR(?ulan),"wikidata") 
+            }
+             FILTER NOT EXISTS {
+                    FILTER CONTAINS(STR(?subject),"ulan") 
+            }
+            FILTER NOT EXISTS {
+                    FILTER CONTAINS(STR(?subject),"wikidata") 
+            }
+        FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+  } order by (?score) LIMIT 10000'
+  query='
+  SELECT ?nothing WHERE{
+    ?nothing a <http://this_is_hidden_and_will_never_run>
+  }
+  '
+  class="hiddenSearchbar"
+  >
+</semantic-search-query-keyword>
+  </template>
+</mp-event-target-template-render>
+   <div class="row">
+    <mp-event-target-template-render id="my-render" template="{{> combined}}">
+      <template id='combined'>
+          <semantic-search-result-holder>
+            <div>
+              <semantic-search-result>
+                  <semantic-query
+                    id="view-more"
+                    query='SELECT ?keywords WHERE {
+                      BIND(REPLACE(str("[[urlParam "keyword"]]"),"\\+"," ") as ?keywords)}'
+                    template="{{>currentSearchText}}"
+                  >
+                      <template id="currentSearchText">
+                        <h2>Searched for: {{mode}}
+                          <i>{{bindings.0.keywords.value}}</i>
+                        </h2>
+                      </template>
+                  </semantic-query>
+                  <semantic-query
+                    id="view-more"
+                    query='SELECT (COUNT(DISTINCT ?subject) as ?count) WHERE {} LIMIT 1'
+                    template="{{>currentResultCount}}"
+                  >
+                      <template id="currentResultCount">
+                          <h2>
+                            Found 
+                            {{#ifCond bindings.0.count.value "==" 1000 }}
+                            more than 1000 relevant results
+                            {{else}}
+                              {{bindings.0.count.value}} relevant results
+                            {{/ifCond}}
+                          </h2>
+                          <small>
+                              Displaying
+                            {{#ifCond bindings.0.count.value ">=" 1000 }}
+                              the first 1000 results
+                            {{else}}
+                            all results
+                            {{/ifCond}}
+                          </small>
+                      </template>
+                  </semantic-query>
+                        <div id="tableView">
+                          <semantic-table
+                                  id="semantic-search-result-table"
+                                  query='SELECT DISTINCT 
+                                ?subject
+                                ?type ?prov
+                                WHERE {
+                                ?subject  a ?type .
+                                ?subject <https://artresearch.net/custom/has_provider> ?prov
+                                }LIMIT 10000'
+                                  no-result-template='[[> CardNoResult ]]'
+                                  column-configuration='[
+                                {"variableName": "label",  "showFilter": true,"filterType": "multiselect","displayName": "Title","cellTemplate": "{{>titleTemplate}}"},
+                                {
+                                  "variableName": "type",
+                                  "displayName": "Type", 
+                                  "cellTemplate": "{{>type}}"
+                                },
+                                 {
+                                  "variableName": "subject",
+                                  "displayName": "Provider", 
+                                  "cellTemplate": "{{>prov}}"
+                                }
+                                ]'
+                                >
+                                <template id="titleTemplate">
+
+                                  
+                                  [[#if artists]]
+                                <semantic-link iri="Default:ConfirmArtist"   
+                                  urlqueryparam-partner='{{prov.value}}'
+                                  urlqueryparam-subject="{{subject.value}}">
+                                  <div class="matchNresults">
+                                      <mp-label iri="{{subject.value}}"> </mp-label>
+                                  </div>
+                                </semantic-link>
+                                [[/if]]
+                                 [[#if photographers]]
+                                <semantic-link iri="Default:ConfirmPhotographer"   
+                                  urlqueryparam-partner='{{prov.value}}'
+                                  urlqueryparam-subject="{{subject.value}}">
+                                  <div class="matchNresults">
+                                      <mp-label iri="{{subject.value}}"> </mp-label>
+                                  </div>
+                                </semantic-link>
+                                [[/if]]
+                                [[#if repositories]]
+                                <semantic-link iri="Default:ConfirmRepository"   
+                                  urlqueryparam-partner='{{prov.value}}'
+                                  urlqueryparam-subject="{{subject.value}}">
+                                
+                                  <div class="matchNresults">
+                                      <mp-label iri="{{subject.value}}"> </mp-label>
+                                  </div>
+                                </semantic-link>
+                                [[/if]]
+                                  </template>
+                         
+                              
+
+                                  <template id="type">
+                                      <mp-label iri="{{type.value}}"></mp-label>
+                                </template>
+
+                                <template id="prov">
+                                  <mp-label iri="{{prov.value}}"></mp-label>
+                                </template>
+                                </semantic-table>
+
+                        </div>
+              </semantic-search-result>
+            </div>
+          </semantic-search-result-holder>
+      </template>
+    </mp-event-target-template-render>
+  </div>
+  </div>
+  
+  </template>
+  </semantic-query>
+  </semantic-context>

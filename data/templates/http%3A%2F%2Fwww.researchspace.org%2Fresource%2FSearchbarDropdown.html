@@ -1,0 +1,38 @@
+<bs-dropdown-button class="fa fa-chevron-down" title="[[dropdownTitle]]" no-caret="true">
+  <mp-event-trigger
+    id="event-trigger-tab-artwork"
+    type="Component.TemplateUpdate"
+    data='{"selectedTab":"Artworks"}'
+    targets='["event-target-search-btn","event-target-search-switches","event-target-search-switches-container","event-target-tab-select"]'
+  >
+    <bs-menu-item active event-key="artwork">
+      <div class="PopoverWrapp">
+          <h2>Artists</h2>
+      </div>
+    </bs-menu-item>
+  </mp-event-trigger>
+  <mp-event-trigger
+    id="event-trigger-tab-photographers"
+    type="Component.TemplateUpdate"
+    data='{"selectedTab":"Photographers"}'
+    targets='["event-target-search-btn","event-target-search-switches","event-target-search-switches-container","event-target-tab-select"]'
+  >
+    <bs-menu-item event-key="photographers">
+       <div class="PopoverWrapp">
+          <h2>Photographers</h2>
+      </div>
+    </bs-menu-item>
+  </mp-event-trigger>
+  <mp-event-trigger
+    id="event-trigger-tab-repositories"
+    type="Component.TemplateUpdate"
+    data='{"selectedTab":"Repositories"}'
+    targets='["event-target-search-btn","event-target-search-switches","event-target-search-switches-container","event-target-tab-select"]'
+  >
+    <bs-menu-item event-key="repositories"> 
+       <div class="PopoverWrapp">
+            <h2>Repositories</h2>
+      </div>
+    </bs-menu-item>
+  </mp-event-trigger>
+</bs-dropdown-button>
