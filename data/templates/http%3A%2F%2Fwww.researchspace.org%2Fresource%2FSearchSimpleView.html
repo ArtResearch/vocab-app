@@ -40,6 +40,12 @@
            [[#if photographers]]
            ?subject a cfc:photographer.
            [[/if]]
+           [[#if materials]]
+           ?subject a cfc:material.
+           [[/if]]
+           [[#if techniques]]
+           ?subject a cfc:technique.
+           [[/if]]
            FILTER EXISTS {  ?subject <https://artresearch.net/custom/has_provider> ?prov}
             FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
             FILTER NOT EXISTS {
