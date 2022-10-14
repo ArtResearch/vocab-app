@@ -1,0 +1,137 @@
+<div id="matchings" class="matching-list">
+    <div class="jumbotron">
+      <h1  class="display-13 jumbotronmargin displayFlex">
+        <semantic-link
+        urlqueryparam-partner='[[urlParam "partner"]]'
+        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+        iri="Default:PartnerCategorySelectList">
+          <div class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Back
+          </div>
+        </semantic-link>
+        List of Technique matchings
+      </h1>
+    </div>
+
+    <div
+      title="Your selected provider"
+      class="selectedProvider"
+    >
+      <img
+        style="height: 80px"
+        src='../../assets/images/logos/[[urlParam "partnerimage"]]'
+      />
+    </div>
+    <div class="matchingContainer" >
+            <semantic-query
+                query='SELECT DISTINCT ?prov WHERE {
+                  BIND(<[[urlParam "partner"]]> as ?prov)
+                }'
+                template="{{>Mytable}}">
+                <template id="Mytable">
+                  {{#ifCond bindings.0.prov.value "===" "https://artresearch.net/resource/pmc/source/PMC"}}
+                    <semantic-table
+                    query='
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count)  WHERE {
+                      ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                      ?subject a <https://artresearch.net/resource/custom/fc/technique>.
+                      OPTIONAL{
+                        ?subject skos:closeMatch ?match.
+                      }
+                        FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+                          FILTER NOT EXISTS {
+                                  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                  FILTER CONTAINS(STR(?ulan),"wikidata")
+
+                          }
+                           FILTER NOT EXISTS {
+                              ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+                            }
+                          FILTER NOT EXISTS {
+                                  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                  FILTER CONTAINS(STR(?ulan),"ulan")
+
+                          }
+                        FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                        FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
+                        FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
+                      } GROUP BY ?subject  ORDER BY ASC(?count) LIMIT 1000'
+                      options='{"showFilter":true, "resultsPerPage":10}'
+                      number-of-displayed-rows="10"
+                      no-result-template="<h1>No results</h1>"
+                      column-configuration='[
+                      {"variableName": "subject", "displayName": "Technique",
+                      "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "count", "displayName": "Number of matchings"}
+                      ]'
+                    >
+                      <template id="singleArtistTemplate">
+                        <semantic-link iri="Default:ConfirmTechnique"
+                        urlqueryparam-partner='[[urlParam "partner"]]'
+                        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                        urlqueryparam-subject="{{subject.value}}">
+                        <div class="matchNresults">
+                            <mp-label iri="{{subject.value}}"> </mp-label>
+                        </div>
+                      </semantic-link>
+                      </template>
+                    </semantic-table>
+                    {{else}}
+                    <semantic-table
+                    query='
+                      SELECT DISTINCT ?subject (COUNT(?match) as ?count)  WHERE {
+                          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                          ?subject a <https://artresearch.net/resource/custom/fc/technique>.
+                              ?subject skos:closeMatch ?match.
+                            FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
+                              FILTER NOT EXISTS {
+                                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                      FILTER CONTAINS(STR(?ulan),"wikidata")
+                              }
+                               FILTER NOT EXISTS {
+                                ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
+                              }
+                              FILTER NOT EXISTS {
+                                      ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
+                                      FILTER CONTAINS(STR(?ulan),"ulan")
+                              }
+                            FILTER NOT EXISTS { ?subject <https://vocab.artresearch.net/custom/reviewed> true}
+                            FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/artist>}
+                            FILTER NOT EXISTS { ?subject a <https://artresearch.net/resource/custom/fc/photographer>}
+                      } GROUP BY ?subject  ORDER BY ASC (?count) LIMIT 1000'
+                      options='{"showFilter":true, "resultsPerPage":10}'
+                      number-of-displayed-rows="10"
+                      no-result-template="<h1>No results</h1>"
+                      column-configuration='[
+                      {"variableName": "subject", "displayName": "Technique",
+                      "cellTemplate": "{{>singleArtistTemplate}}"},
+                      {"variableName": "count", "displayName": "Number of matchings"}
+                      ]'
+                    >
+                      <template id="singleArtistTemplate">
+                        <semantic-link iri="Default:ConfirmTechnique"
+                        urlqueryparam-partner='[[urlParam "partner"]]'
+                        urlqueryparam-partnerimage='[[urlParam "partnerimage"]]'
+                        urlqueryparam-subject="{{subject.value}}">
+                        <div class="matchNresults">
+                            <mp-label iri="{{subject.value}}"> </mp-label>
+                        </div>
+                      </semantic-link>
+                      </template>
+                    </semantic-table>
+                    {{/ifCond}}
+        </template>
+            </semantic-query>
+    </div>
+<style>
+ .modal-dialog.overlay-lightbox__dialog.modal-dialog h4.modal-title{
+  background: #eaeaea;
+  margin-left: 10px;
+  padding: 1vh;
+  color: black;
+  width: 92%;
+  padding-left: 35px;
+  border-radius: 25px;
+  text-transform: none;
+}
+</style>

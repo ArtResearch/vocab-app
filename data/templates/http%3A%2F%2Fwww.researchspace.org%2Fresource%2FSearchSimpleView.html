@@ -175,6 +175,26 @@
                                   </div>
                                 </semantic-link>
                                 [[/if]]
+                                [[#if materials]]
+                                <semantic-link iri="Default:ConfirmMaterial"   
+                                  urlqueryparam-partner='{{prov.value}}'
+                                  urlqueryparam-subject="{{subject.value}}">
+                                
+                                  <div class="matchNresults">
+                                      <mp-label iri="{{subject.value}}"> </mp-label>
+                                  </div>
+                                </semantic-link>
+                                [[/if]]
+                                [[#if techniques]]
+                                <semantic-link iri="Default:ConfirmTechnique"   
+                                  urlqueryparam-partner='{{prov.value}}'
+                                  urlqueryparam-subject="{{subject.value}}">
+                                
+                                  <div class="matchNresults">
+                                      <mp-label iri="{{subject.value}}"> </mp-label>
+                                  </div>
+                                </semantic-link>
+                                [[/if]]
                                   </template>
                          
                               

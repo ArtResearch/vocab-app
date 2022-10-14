@@ -27,6 +27,8 @@
                 <bs-nav-item event-key="Artists">Artists</bs-nav-item>
                 <bs-nav-item event-key="Photographers">Photographers</bs-nav-item>
                 <bs-nav-item event-key="Repositories">Repositories</bs-nav-item>
+                <bs-nav-item event-key="Techniques">Techniques</bs-nav-item>
+                <bs-nav-item event-key="Materials">Materials</bs-nav-item>
               </bs-nav>
 
               <bs-tab-content unmount-on-exit="true">
@@ -49,6 +51,20 @@
                           limit=1000
                         >
                           [[> SearchSimpleView repositories=true]]
+                      </semantic-search>
+                  </bs-tab-pane>
+                  <bs-tab-pane event-key="Techniques">
+                      <semantic-search
+                          limit=1000
+                        >
+                          [[> SearchSimpleView techniques=true]]
+                      </semantic-search>
+                  </bs-tab-pane>
+                  <bs-tab-pane event-key="Materials">
+                      <semantic-search
+                          limit=1000
+                        >
+                          [[> SearchSimpleView materials=true]]
                       </semantic-search>
                   </bs-tab-pane>
               </bs-tab-content>

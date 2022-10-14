@@ -35,4 +35,28 @@
       </div>
     </bs-menu-item>
   </mp-event-trigger>
+    <mp-event-trigger
+    id="event-trigger-tab-techniques"
+    type="Component.TemplateUpdate"
+    data='{"selectedTab":"Techniques"}'
+    targets='["event-target-search-btn","event-target-search-switches","event-target-search-switches-container","event-target-tab-select"]'
+  >
+    <bs-menu-item event-key="techniques"> 
+       <div class="PopoverWrapp">
+            <h2>Techniques</h2>
+      </div>
+    </bs-menu-item>
+  </mp-event-trigger>
+    <mp-event-trigger
+    id="event-trigger-tab-materials"
+    type="Component.TemplateUpdate"
+    data='{"selectedTab":"Materials"}'
+    targets='["event-target-search-btn","event-target-search-switches","event-target-search-switches-container","event-target-tab-select"]'
+  >
+    <bs-menu-item event-key="materials"> 
+       <div class="PopoverWrapp">
+            <h2>Materials</h2>
+      </div>
+    </bs-menu-item>
+  </mp-event-trigger>
 </bs-dropdown-button>
