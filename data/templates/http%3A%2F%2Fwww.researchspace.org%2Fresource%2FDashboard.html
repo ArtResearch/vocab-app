@@ -25,6 +25,10 @@
             ?value a fc:photographer.
           [[else if repositories]]
             ?value a fc:institution.
+          [[else if materials]]
+            ?value a fc:materials.
+          [[else if techniques]]
+            ?value a fc:techniques.
           [[/if]]
       }GROUP BY ?subject ORDER BY DESC(?datetime) LIMIT 1000'
       number-of-displayed-rows=10
@@ -38,6 +42,10 @@
               {"variableName":"value","displayName":"Wikidata", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
             [[else if repositories]]
               {"variableName":"value","displayName":"Wikidata", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
+            [[else if materials]]
+              {"variableName":"value","displayName":"AAT", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
+            [[else if techniques]]
+              {"variableName":"value","displayName":"AAT", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
             [[/if]]
             {"variableName":"attribution","displayName":"Attribution", "cellTemplate": "<mp-label iri=\"{{attribution.value}}\"></mp-label>"},
             {"variableName":"datetime","displayName":"Modified", "cellTemplate": "{{datetime.value}}"},
