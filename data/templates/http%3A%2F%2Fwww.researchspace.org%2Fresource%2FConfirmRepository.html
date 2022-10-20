@@ -30,17 +30,14 @@
       {{#ifCond "===" "https://artresearch.net/resource/pmc/source/PMC"}}
       query='
         SELECT ?subject  WHERE {
-     
          FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
           FILTER NOT EXISTS {
                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                  FILTER CONTAINS(STR(?ulan),"ulan") 
-                
+                  FILTER CONTAINS(STR(?ulan),"ulan")
            }
            FILTER NOT EXISTS {
                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                  FILTER CONTAINS(STR(?ulan),"wikidata") 
-                
+                  FILTER CONTAINS(STR(?ulan),"wikidata")
            }
             FILTER NOT EXISTS {
             ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
@@ -58,13 +55,11 @@
          FILTER NOT EXISTS { ?subject <https://artresearch.net/resource/fr/sameAs> ?a }
           FILTER NOT EXISTS {
                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                  FILTER CONTAINS(STR(?ulan),"ulan") 
-                
+                  FILTER CONTAINS(STR(?ulan),"ulan")
            }
            FILTER NOT EXISTS {
                   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.
-                  FILTER CONTAINS(STR(?ulan),"wikidata") 
-                
+                  FILTER CONTAINS(STR(?ulan),"wikidata")
            }
            FILTER NOT EXISTS {
             ?subject <https://vocab.artresearch.net/custom/confirmed> ?value.
@@ -117,7 +112,7 @@
          }'
          template="{{>possibleMatchesTemplate}}"
          no-result-template='{{>onlyGenerateButtons}}'
-         >  
+         >
          <template id="possibleMatchesTemplate">
           <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <small>or generate/submit a uri</small>
@@ -155,7 +150,6 @@
                   for="confirmed"
                   default-value="true"
                 ></semantic-form-hidden-input>
-    
                 <button
                   id="12345"
                   name="submit"
@@ -163,12 +157,10 @@
                   title="Click to generate new Pharos URI"
                 >Generate</button>
               </semantic-form>
-  
               </mp-overlay-dialog-content>
             </mp-overlay-dialog>
             <mp-overlay-dialog title="‎‎Give URI" >
               <mp-overlay-dialog-trigger>
-    
                 <button
                   id="12345"
                   name="submit"
@@ -199,12 +191,10 @@
                     title="Click to generate new Pharos URI"
                   >Submit</button>
                 </semantic-form>
-  
               </mp-overlay-dialog-content>
             </mp-overlay-dialog>
             <mp-overlay-dialog title="Create Pharos Authority" >
             <mp-overlay-dialog-trigger>
-  
               <button
                 id="12345"
                 name="submit"
@@ -227,7 +217,6 @@
                         ]]'
               >
                <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
-                   
                 <button
                   id="12345"
                   name="submit"
@@ -237,9 +226,76 @@
               </semantic-form>
 
             </mp-overlay-dialog-content>
-          </mp-overlay-dialog>
+            </mp-overlay-dialog>
+             <mp-overlay-dialog title="Apply has part" >
+            <mp-overlay-dialog-trigger>
+              <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to merge a Pharos entity with another Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/has_part.svg"/></i>Apply has part</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure you would like to add the relation "has part" to this Pharos URI?</h1>
+              <h2>If yes, click on the Merge button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            submit_uri="https://vision.artresearch.net/fieldDefinitionContainer/Institution_has_part"
+                        ]]'
+              >
+               <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn action approve"
+                  title="Click to merge new Pharos URI"
+                >Add has Part</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+            </mp-overlay-dialog>
+              <mp-overlay-dialog title="Apply is part of" >
+            <mp-overlay-dialog-trigger>
+              <button
+                id="12345"
+                name="submit"
+                class="btn generate"
+                title="If no match is found, this method can be used to merge a Pharos entity with another Pharos entity"
+              ><i><img style="height: 15px;
+                margin-right: 8px;" src="/assets/images/is_part_of.svg"/></i>Apply is part of</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure you would like to add the relation "is part of" to this Pharos URI?</h1>
+              <h2>If yes, click on the Merge button bellow.</h2>
+              <semantic-form
+                new-subject-template="{{bindings.0.currentCanditate.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                post-action="reload"
+                form-id="samehash"
+                fields='[[  fieldDefinitions
+                            submit_uri="https://vocab.artresearch.net/fieldDefinitionContainer/Institution_is_Part_of"
+                        ]]'
+              >
+               <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
+                <button
+                  id="12345"
+                  name="submit"
+                  class="btn action approve"
+                  title="Click to merge new Pharos URI"
+                >Add is Part Of</button>
+              </semantic-form>
+
+            </mp-overlay-dialog-content>
+            </mp-overlay-dialog>
           </div>
-  
            {{#each bindings}}
             <div class="matchingCard special">
                 <div class="matchingCardHeader">
@@ -250,11 +306,9 @@
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
                     </h2>
-                  
                     <h2 class="recommendedText">
                       Recommended
                     </h2>
-                    
                     <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                       <mp-overlay-dialog-trigger
                         >
@@ -273,7 +327,6 @@
                   <mp-overlay-dialog title="‎‎Confirm matching" >
                     <mp-overlay-dialog-trigger
                       >
-          
                       <button
                       id="1234"
                       name="submit"
@@ -302,7 +355,6 @@
                         for="confirmed"
                         default-value="{{match.value}}"
                       ></semantic-form-hidden-input>
-    
                       <button
                         id="1234"
                         name="submit"
@@ -310,7 +362,6 @@
                         title="Click to confirm two Repository instances as the same"
                       > Confirm </button>
                     </semantic-form>
-        
                           </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
                 </div>
@@ -371,7 +422,6 @@
                   for="confirmed"
                   default-value="true"
                 ></semantic-form-hidden-input>
-    
                 <button
                   id="12345"
                   name="submit"
@@ -379,12 +429,10 @@
                   title="Click to generate new Pharos URI"
                 >Generate</button>
               </semantic-form>
-  
                     </mp-overlay-dialog-content>
             </mp-overlay-dialog>
             <mp-overlay-dialog title="‎‎Give URI" >
               <mp-overlay-dialog-trigger>
-    
                 <button
                   id="12345"
                   name="submit"
@@ -413,12 +461,10 @@
                     title="Click to generate new Pharos URI"
                   >Submit</button>
                 </semantic-form>
-  
               </mp-overlay-dialog-content>
             </mp-overlay-dialog>
             <mp-overlay-dialog title="Create Pharos Authority" >
             <mp-overlay-dialog-trigger>
-  
               <button
                 id="12345"
                 name="submit"
@@ -441,7 +487,6 @@
                         ]]'
               >
                <semantic-form-text-input for='submit_uri'></semantic-form-text-input>
-                   
                 <button
                   id="12345"
                   name="submit"
@@ -456,7 +501,6 @@
         </template>
 
          </semantic-query>
-    
       </template>
        </semantic-query>
         <semantic-query
@@ -474,9 +518,8 @@
             BIND(<{{bindings.0.subject.value}}> as ?currentCanditate)
          }'
          template="{{>possibleMatchesTemplate}}"
-       
-         >  
-         <template id="possibleMatchesTemplate"> 
+         >
+         <template id="possibleMatchesTemplate">
            {{#each bindings}}
             <div class="matchingCard">
                 <div class="matchingCardHeader">
@@ -510,7 +553,6 @@
                   <mp-overlay-dialog title="‎‎Confirm matching" >
                     <mp-overlay-dialog-trigger
                       >
-          
                       <button
                       id="1234"
                       name="submit"
@@ -539,7 +581,6 @@
                         for="confirmed"
                         default-value="{{match.value}}"
                       ></semantic-form-hidden-input>
-    
                       <button
                         id="1234"
                         name="submit"
@@ -547,7 +588,6 @@
                         title="Click to confirm two Repository instances as the same"
                       > Confirm </button>
                     </semantic-form>
-        
                           </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
                 </div>
