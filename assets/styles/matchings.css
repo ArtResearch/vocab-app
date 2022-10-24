@@ -62,7 +62,7 @@
   min-height: 65px;
   height: fit-content;
   align-items: center;
-  width: -webkit-fill-available;
+  width: inherit;
 }
 
 #matchings .actions .action {
