@@ -2,40 +2,29 @@
   <div>
     <div class="jumbotron">
       <h1 class="display-13 jumbotronmarginNoflex">
-        Select an entity to view merged resources
+        Find merged records
       </h1>
     </div>
       <div style="display: flex;
       align-items: center;
       flex-direction: column;
     justify-content: center;">
-    <h3>or search for a specific resource</h3>
+    <h3>or search for a specific resource that has been merged</h3>
       [[> :SearchbarMerged selectedCategory='Artists']]
     </div>
     <div class="card-list">
-      <semantic-link
-        iri="Default:MergedArtists"
-      >
+
         <div class="card">
           <img src="../../assets/images/icons/artist.svg" />
           <div class="title">Merged Artists</div>
-        </div>
-      </semantic-link>
-      <semantic-link
-        iri="Default:MergedPhotographers"
-      >
+          </div>
         <div class="card">
           <img src="../../assets/images/icons/photographer.svg" />
           <div class="title">Merged Photographers</div>
         </div>
-      </semantic-link>
-      <semantic-link
-        iri="Default:MergedRepositories"
-      >
         <div class="card">
           <img src="../../assets/images/icons/repository.svg" />
           <div class="title">Merged Repositories</div>
         </div>
-      </semantic-link>
       </div>
   </div>

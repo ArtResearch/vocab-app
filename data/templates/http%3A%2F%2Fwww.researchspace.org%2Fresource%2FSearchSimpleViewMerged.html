@@ -136,7 +136,16 @@
 
         <template id="pharos">
           <div>
-            <a href="{{subject.value}}">{{label.value}}</a>
+            <a href="{{subject.value}}">{{label.value}}</a> :
+            <semantic-query
+              query="SELECT ?y WHERE {
+                <{{subject.value}}> <https://artresearch.net/custom/has_provider> ?y.
+              }limit 1"
+              template="{{> prov}}">
+              <template id="prov" >
+                <mp-label iri="{{bindings.0.y.value}}"></mp-label>
+              </template>
+            </semantic-query>
           </div>
         </template>
         <template id="same">
