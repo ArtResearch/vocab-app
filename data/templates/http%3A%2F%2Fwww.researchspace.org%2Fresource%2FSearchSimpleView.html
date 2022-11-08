@@ -124,7 +124,6 @@
                                 ?subject
                                 (SAMPLE (?type) as ?type)
                                 (SAMPLE (?prov) as ?prov)
-                                 
                                 WHERE {
                                 ?subject  a ?type .
                                 ?subject <https://artresearch.net/custom/has_provider> ?prov
@@ -186,7 +185,7 @@
                                 <template id="prov">
                                   <mp-label iri="{{prov.value}}"></mp-label>
                                 </template>
-                                </semantic-table>
+                          </semantic-table>
 
                         </div>
               </semantic-search-result>
