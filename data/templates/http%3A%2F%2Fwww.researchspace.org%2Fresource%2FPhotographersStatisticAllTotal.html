@@ -1,12 +1,12 @@
 <div class="stats">
 <semantic-query
-  query='SELECT (COUNT( ?sub ) as ?sub_matched) (COUNT( ?g_same ) as ?sub_matched2)  ?partnerLabel (COUNT(?subnm) as ?unmatched) ((?sub_matched+?sub_matched2) as ?matched) ((?matched+?unmatched) as ?total)  WHERE {
+  query='SELECT (COUNT( ?sub ) as ?matched)   ?partnerLabel (COUNT(?subnm) as ?unmatched) ((?matched+?unmatched) as ?total)  WHERE {
     <[[partnerUri]]> rdfs:label ?partnerLabel
  
       {
     ?sub <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
     ?sub a <https://artresearch.net/resource/custom/fc/photographer>.
-    ?sub  <https://vocab.artresearch.net/custom/confirmed> true .
+    ?sub  <http://www.w3.org/2002/07/owl#sameAs> ?other .
 
     FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/institution>} 
     FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/artist>} 
@@ -14,7 +14,7 @@
      ?subnm <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
      ?subnm a <https://artresearch.net/resource/custom/fc/photographer>.
    
-   FILTER NOT EXISTS { ?subnm  <https://vocab.artresearch.net/custom/confirmed> true } 
+   FILTER NOT EXISTS { ?subnm  <http://www.w3.org/2002/07/owl#sameAs> ?other } 
    FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/institution>} 
    FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/artist>} 
       }UNION{
