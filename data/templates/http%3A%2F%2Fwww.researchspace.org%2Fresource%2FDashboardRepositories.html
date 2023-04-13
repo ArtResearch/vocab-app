@@ -22,6 +22,8 @@
       </bs-nav-item>
       <bs-nav-item event-key='pmc'><div style="display: flex;">PMC</div>
       </bs-nav-item>
+      <bs-nav-item event-key='nga'><div style="display: flex;">NGA</div>
+      </bs-nav-item>
     </bs-nav>
     <bs-tab-content unmount-on-exit=true>
       <div>
@@ -46,6 +48,9 @@
         <bs-tab-pane event-key='pmc'>
           [[> Dashboard repositories=true provider='https://artresearch.net/resource/pmc/source/PMC']]
         </bs-tab-pane>
+        <bs-tab-pane event-key='nga'>
+          [[> Dashboard repositories=true provider='https://artresearch.net/resource/nga/source/NGA']]
+        </bs-tab-pane>        
       </div>
     </bs-tab-content>
       </div>
